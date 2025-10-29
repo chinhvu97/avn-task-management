@@ -1,0 +1,30 @@
+# Documentation
+*.md
+!README.md
+
+# IDE
+.vscode/
+.idea/
+.claude/
+.serena/
+
+# Mac
+.DS_Store
+
+# Build artifacts
+node_modules/
+npm-debug.log*
+.npm
+
+# Git
+.git/
+.gitignore
+
+# PDF files
+*.pdf
+
+# Development
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

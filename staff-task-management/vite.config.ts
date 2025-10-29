@@ -5,6 +5,7 @@
 
   export default defineConfig({
     plugins: [react()],
+    base: process.env.VERCEL ? '/staff/' : '/',
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       alias: {

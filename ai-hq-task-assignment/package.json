@@ -17,6 +17,7 @@
       },
       "scripts": {
           "dev": "vite",
-          "build": "vite build"
+          "build": "vite build",
+          "vercel-build": "cd ../shared-data && npm install && cd ../ai-hq-task-assignment && npm install && VERCEL=true vite build"
       }
   }

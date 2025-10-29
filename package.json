@@ -1,0 +1,24 @@
+{
+  "name": "aeon-task-management-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AEON Vietnam Task Management System - Monorepo with HQ and Staff apps",
+  "workspaces": [
+    "ai-hq-task-assignment",
+    "staff-task-management",
+    "shared-data"
+  ],
+  "scripts": {
+    "install:all": "npm install && cd ai-hq-task-assignment && npm install && cd ../staff-task-management && npm install && cd ../shared-data && npm install",
+    "build:shared": "cd shared-data && npm run build",
+    "build:hq": "cd ai-hq-task-assignment && npm install && npm run build",
+    "build:staff": "cd staff-task-management && npm install && npm run build",
+    "build:all": "npm run build:shared && npm run build:hq && npm run build:staff",
+    "dev:hq": "cd ai-hq-task-assignment && npm run dev",
+    "dev:staff": "cd staff-task-management && npm run dev"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
