@@ -1,23 +1,23 @@
-
-  {
+{
       "name": "ai-task-assignment",
       "version": "0.1.0",
       "private": true,
       "dependencies": {
-          "lucide-react": "*",
-          "react": "^18.3.1",
-          "react-dom": "^18.3.1",
-          "react-router-dom": "*",
-          "shared-data": "file:../shared-data"
+            "lucide-react": "*",
+            "react": "^18.3.1",
+            "react-dom": "^18.3.1",
+            "react-router-dom": "*",
+            "recharts": "^2.15.2",
+            "shared-data": "file:../shared-data"
       },
       "devDependencies": {
-          "@types/node": "^20.10.0",
-          "@vitejs/plugin-react": "^4.3.4",
-          "vite": "^5.4.11"
+            "@types/node": "^20.10.0",
+            "@vitejs/plugin-react": "^4.3.4",
+            "vite": "^5.4.11"
       },
       "scripts": {
-          "dev": "vite",
-          "build": "vite build",
-          "vercel-build": "cd ../shared-data && npm install && cd ../ai-hq-task-assignment && npm install && VERCEL=true vite build"
+            "dev": "vite",
+            "build": "vite build",
+            "vercel-build": "cd ../shared-data && npm install && cd ../ai-hq-task-assignment && npm install && VERCEL=true vite build"
       }
-  }
+}
