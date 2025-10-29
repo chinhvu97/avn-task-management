@@ -1,4 +1,4 @@
-import { Staff, Task, Shift, LeaderboardEntry, TaskType, TaskStatus } from '../types';
+import { Staff, Task, Shift, TaskType, TaskStatus } from '../types';
 import { dwsTemplates, wsTemplates, staff as sharedStaff, getStaffByBuilding } from 'shared-data';
 
 // ============================================
@@ -520,10 +520,5 @@ const generateMonthShifts = (): Shift[] => {
 
 export const mockShifts: Shift[] = generateMonthShifts();
 
-export const mockLeaderboard: LeaderboardEntry[] = [
-  { staffId: '1', staffName: 'Nam N.V', tasksCompleted: 45, completionRate: 96, totalHours: 168, efficiency: 98, rank: 1 },
-  { staffId: '3', staffName: 'Cuong N.V', tasksCompleted: 42, completionRate: 94, totalHours: 165, efficiency: 95, rank: 2 },
-  { staffId: '2', staffName: 'Thuy N.T', tasksCompleted: 38, completionRate: 91, totalHours: 170, efficiency: 92, rank: 3 },
-  { staffId: '5', staffName: 'Tran V.M', tasksCompleted: 35, completionRate: 88, totalHours: 156, efficiency: 89, rank: 4 },
-  { staffId: '4', staffName: 'Binh D.V', tasksCompleted: 32, completionRate: 85, totalHours: 162, efficiency: 86, rank: 5 },
-];
+// Leaderboard data now imported from shared-data
+// See: import { mockLeaderboard } from 'shared-data' at top of file

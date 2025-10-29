@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ClipboardList, CalendarClock, Trophy } from 'lucide-react';
 import { Task, ViewMode } from './types';
-import { mockStaff, mockTasks, mockShifts, mockLeaderboard, allStaff } from './lib/mockData';
+import { mockStaff, mockTasks, mockShifts, allStaff } from './lib/mockData';
 import { Header } from './components/Header';
 import { TimelineView } from './components/TimelineView';
 import { KanbanView } from './components/KanbanView';

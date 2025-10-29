@@ -13,3 +13,6 @@ export * from './master';
 
 // Export mock tasks (for demo/testing)
 export * from './mockTasks';
+
+// Export leaderboard data
+export * from './leaderboard';

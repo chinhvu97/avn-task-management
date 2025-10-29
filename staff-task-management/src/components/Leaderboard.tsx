@@ -116,11 +116,11 @@ export function Leaderboard({ staff, shifts, tasks }: LeaderboardProps) {
     // Filter staff based on scope
     let filteredStaff = staff;
     if (scope === 'store') {
-      // Only staff from Hawaii Building, Ocean Park
-      filteredStaff = staff.filter(s => s.building === 'Hawaii Building' && s.city === 'Ocean Park');
+      // Only staff from Ocean Park Hawaii Building (main demo store)
+      filteredStaff = staff.filter(s => s.building === 'AEON MAXVALU OCEAN PARK HAWAII BUILDING');
     } else if (scope === 'regional') {
-      // All staff from Ocean Park region (all buildings)
-      filteredStaff = staff.filter(s => s.region === 'Ocean Park');
+      // All staff from North region
+      filteredStaff = staff.filter(s => s.region === 'North');
     }
     // For 'global', use all staff (no filtering)
 
