@@ -1,49 +1,28 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "version": 2,
-  "name": "aeon-task-management",
-  "builds": [
+  "buildCommand": "npm run build:all",
+  "outputDirectory": ".",
+  "installCommand": "npm install",
+  "rewrites": [
     {
-      "src": "ai-hq-task-assignment/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
+      "source": "/hq",
+      "destination": "/ai-hq-task-assignment/build/index.html"
     },
     {
-      "src": "staff-task-management/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/hq/(.*)",
-      "dest": "/ai-hq-task-assignment/$1"
+      "source": "/hq/:path*",
+      "destination": "/ai-hq-task-assignment/build/:path*"
     },
     {
-      "src": "/staff/(.*)",
-      "dest": "/staff-task-management/$1"
+      "source": "/staff",
+      "destination": "/staff-task-management/build/index.html"
     },
     {
-      "src": "/hq",
-      "dest": "/ai-hq-task-assignment/index.html"
+      "source": "/staff/:path*",
+      "destination": "/staff-task-management/build/:path*"
     },
     {
-      "src": "/staff",
-      "dest": "/staff-task-management/index.html"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "status": 301,
-      "headers": {
-        "Location": "/hq"
-      }
+      "source": "/",
+      "destination": "/ai-hq-task-assignment/build/index.html"
     }
   ],
   "github": {

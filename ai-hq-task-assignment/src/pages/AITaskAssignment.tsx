@@ -10,9 +10,10 @@ export default function AITaskAssignment() {
   const { profile } = useRole();
   const currentStore = getCurrentStore(profile);
 
+  const [currentStep, setCurrentStep] = useState(1);
+  const [selectedDate, setSelectedDate] = useState('Monday, October 27, 2025');
   const [selectedScenario, setSelectedScenario] = useState('balanced');
   const [viewMode, setViewMode] = useState<'gantt' | 'list'>('gantt');
-  const [selectedDate] = useState('Monday, October 27, 2025');
 
   // Filter staff to only show staff from the current store
   const storeStaff = currentStore
@@ -220,6 +221,295 @@ export default function AITaskAssignment() {
     navigate('/task-monitoring');
   };
 
+  // Preset date options
+  const datePresets = [
+    { label: 'Today', value: 'Monday, October 27, 2025' },
+    { label: 'Tomorrow', value: 'Tuesday, October 28, 2025' },
+    { label: 'Next Monday', value: 'Monday, November 3, 2025' },
+    { label: 'Next Friday', value: 'Friday, November 7, 2025' },
+  ];
+
+  // STEP 1: Date Selection
+  if (currentStep === 1) {
+    return (
+      <div className="p-6">
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-2 text-sm mb-6">
+          <span className="text-gray-500">Task Management</span>
+          <ChevronRight className="w-4 h-4 text-gray-500" />
+          <span className="text-gray-800 font-medium">AI Task Assignment</span>
+        </div>
+
+        {/* Page Header */}
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-gray-800 mb-2">AI Task Assignment</h1>
+          <p className="text-gray-500">Intelligent task distribution with automated scenario generation</p>
+        </div>
+
+        {/* Progress Steps */}
+        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center shadow-lg">
+                <Check className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <div className="font-medium text-gray-800">Step 1</div>
+                <div className="text-xs text-gray-800">Date Selection</div>
+              </div>
+            </div>
+
+            <div className="flex-1 h-0.5 bg-gray-200 mx-4"></div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center">
+                <BarChart3 className="w-5 h-5 text-gray-500" />
+              </div>
+              <div>
+                <div className="font-medium text-gray-500">Step 2</div>
+                <div className="text-xs text-gray-500">Scenario Generation</div>
+              </div>
+            </div>
+
+            <div className="flex-1 h-0.5 bg-gray-200 mx-4"></div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center">
+                <Check className="w-5 h-5 text-gray-500" />
+              </div>
+              <div>
+                <div className="font-medium text-gray-500">Step 3</div>
+                <div className="text-xs text-gray-500">Confirmation</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Date Selection */}
+        <div className="flex justify-center mb-6">
+          <div className="bg-white border border-gray-200 rounded-lg" style={{ width: '700px', maxWidth: '90%', padding: '3rem' }}>
+            <div className="text-center mb-8">
+              <h2 className="text-xl font-semibold text-gray-800 mb-2">Select Assignment Date</h2>
+              <p className="text-gray-500">Choose the date for AI-powered task assignment</p>
+            </div>
+
+            {/* Current Selection */}
+            <div className="bg-pink-50 border-2 border-pink-600 rounded-lg p-8 mb-6 text-center">
+              <div className="text-sm text-pink-600 font-medium mb-2">Selected Date</div>
+              <div className="text-2xl font-bold text-gray-800">{selectedDate}</div>
+            </div>
+
+            {/* Quick Presets */}
+            <div className="mb-6">
+              <label className="text-sm font-medium text-gray-700 mb-3 block">Quick Select</label>
+              <div className="grid grid-cols-2 gap-3">
+                {datePresets.map((preset) => (
+                  <button
+                    key={preset.value}
+                    onClick={() => setSelectedDate(preset.value)}
+                    className={`p-4 rounded-lg border-2 text-left transition-all ${
+                      selectedDate === preset.value
+                        ? 'border-pink-600 bg-pink-50'
+                        : 'border-gray-200 bg-white hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="font-medium text-gray-800">{preset.label}</div>
+                    <div className="text-sm text-gray-500 mt-1">{preset.value}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Custom Date Input */}
+            <div className="mb-6">
+              <label className="text-sm font-medium text-gray-700 mb-3 block">Or Enter Custom Date</label>
+              <input
+                type="text"
+                value={selectedDate}
+                onChange={(e) => setSelectedDate(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-pink-600"
+                placeholder="e.g., Monday, October 27, 2025"
+              />
+            </div>
+
+            {/* Store Info */}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <div className="text-sm text-blue-900">
+                  <span className="font-medium">{currentStore?.name || 'Store'}</span> - {storeStaff.length} Staff Members Available
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => navigate('/task-management')}
+                className="px-6 py-3 border border-gray-200 rounded-md hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => setCurrentStep(2)}
+                className="px-6 py-3 bg-pink-600 text-white rounded-md hover:bg-pink-700 flex items-center gap-2 shadow-lg"
+              >
+                Generate Scenarios
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // STEP 3: Confirmation
+  if (currentStep === 3) {
+    return (
+      <div className="p-6">
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-2 text-sm mb-6">
+          <span className="text-gray-500">Task Management</span>
+          <ChevronRight className="w-4 h-4 text-gray-500" />
+          <span className="text-gray-800 font-medium">AI Task Assignment</span>
+        </div>
+
+        {/* Page Header */}
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-gray-800 mb-2">AI Task Assignment</h1>
+          <p className="text-gray-500">Intelligent task distribution with automated scenario generation</p>
+        </div>
+
+        {/* Progress Steps */}
+        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center">
+                <Check className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <div className="font-medium text-gray-800">Step 1</div>
+                <div className="text-xs text-gray-800">Date Selection</div>
+              </div>
+            </div>
+
+            <div className="flex-1 h-0.5 bg-emerald-500 mx-4"></div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center">
+                <BarChart3 className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <div className="font-medium text-gray-800">Step 2</div>
+                <div className="text-xs text-gray-800">Scenario Generation</div>
+              </div>
+            </div>
+
+            <div className="flex-1 h-0.5 bg-emerald-500 mx-4"></div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center shadow-lg">
+                <Check className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <div className="font-medium text-gray-800">Step 3</div>
+                <div className="text-xs text-gray-800">Confirmation</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Confirmation Summary */}
+        <div className="bg-white border border-gray-200 rounded-lg p-8 mb-6">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-8">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Check className="w-8 h-8 text-green-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">Review Assignment</h2>
+              <p className="text-gray-500">Please review the details before confirming</p>
+            </div>
+
+            {/* Summary Cards */}
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="bg-slate-100 p-6 rounded-lg">
+                <div className="text-sm text-gray-500 mb-2">Assignment Date</div>
+                <div className="text-lg font-semibold text-gray-800">{selectedDate}</div>
+              </div>
+              <div className="bg-slate-100 p-6 rounded-lg">
+                <div className="text-sm text-gray-500 mb-2">Store Location</div>
+                <div className="text-lg font-semibold text-gray-800">{currentStore?.name || 'Store'}</div>
+              </div>
+              <div className="bg-slate-100 p-6 rounded-lg">
+                <div className="text-sm text-gray-500 mb-2">Selected Scenario</div>
+                <div className="text-lg font-semibold text-gray-800">{selectedScenarioData?.name}</div>
+              </div>
+              <div className="bg-slate-100 p-6 rounded-lg">
+                <div className="text-sm text-gray-500 mb-2">Total Tasks</div>
+                <div className="text-lg font-semibold text-gray-800">{totalAssignedTasks} Tasks</div>
+              </div>
+            </div>
+
+            {/* Metrics Summary */}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+              <div className="text-sm font-medium text-blue-900 mb-4">Predicted Metrics</div>
+              <div className="grid grid-cols-4 gap-4">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-blue-900 mb-1">{selectedScenarioData?.metrics.workload}%</div>
+                  <div className="text-xs text-blue-700">Workload</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-blue-900 mb-1">{selectedScenarioData?.metrics.timeEst}</div>
+                  <div className="text-xs text-blue-700">Duration</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-blue-900 mb-1">{selectedScenarioData?.metrics.satisfaction}%</div>
+                  <div className="text-xs text-blue-700">Satisfaction</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-blue-900 mb-1">{selectedScenarioData?.metrics.success}%</div>
+                  <div className="text-xs text-blue-700">Success</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Staff List */}
+            <div className="bg-slate-100 p-6 rounded-lg mb-6">
+              <div className="text-sm font-medium text-gray-700 mb-3">{storeStaff.length} Staff Members Assigned</div>
+              <div className="flex flex-wrap gap-2">
+                {storeStaff.map((staff) => (
+                  <div key={staff.id} className="bg-white px-3 py-2 rounded border border-gray-200 text-sm text-gray-700">
+                    {staff.name}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex justify-between">
+              <button
+                onClick={() => setCurrentStep(2)}
+                className="px-6 py-3 border border-gray-200 rounded-md hover:bg-gray-50 flex items-center gap-2"
+              >
+                <ChevronLeft className="w-4 h-4" />
+                Back to Scenarios
+              </button>
+              <button
+                onClick={handleConfirmAssignment}
+                className="px-6 py-3 bg-pink-600 text-white rounded-md hover:bg-pink-700 flex items-center gap-2 shadow-lg"
+              >
+                <Check className="w-4 h-4" />
+                Confirm Assignment
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // STEP 2: Scenario Generation (existing UI)
   return (
     <div className="p-6">
       {/* Breadcrumb */}
@@ -578,7 +868,10 @@ export default function AITaskAssignment() {
 
       {/* Action Buttons */}
       <div className="flex items-center justify-between mb-6">
-        <button className="px-4 py-2 border border-gray-200 rounded-md hover:bg-gray-50 flex items-center gap-2">
+        <button
+          onClick={() => setCurrentStep(1)}
+          className="px-4 py-2 border border-gray-200 rounded-md hover:bg-gray-50 flex items-center gap-2"
+        >
           <ChevronLeft className="w-4 h-4" />
           Back to Date Selection
         </button>
@@ -590,11 +883,10 @@ export default function AITaskAssignment() {
             Manual Edit
           </button>
           <button
-            onClick={handleConfirmAssignment}
+            onClick={() => setCurrentStep(3)}
             className="px-6 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700 flex items-center gap-2 shadow-lg"
           >
-            <Check className="w-4 h-4" />
-            Confirm Assignment
+            Continue to Confirmation
             <ChevronRight className="w-4 h-4" />
           </button>
         </div>

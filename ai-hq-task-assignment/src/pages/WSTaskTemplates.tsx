@@ -190,13 +190,6 @@ export default function WSTaskTemplates() {
         </div>
         <div className="flex gap-3">
           <button
-            onClick={() => navigate('/task-assignment')}
-            className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center gap-2"
-          >
-            <ChevronRight className="w-4 h-4" />
-            Assign Tasks
-          </button>
-          <button
             onClick={handleCreate}
             className="px-4 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700 flex items-center gap-2"
           >

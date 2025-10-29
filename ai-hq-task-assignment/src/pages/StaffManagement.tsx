@@ -1,104 +1,37 @@
 import { useState } from 'react';
 import { Search, Filter, Plus, MoreVertical, Mail, Phone, MapPin, ChevronRight, Download, Edit, Trash2 } from 'lucide-react';
-import imgSarahJohnson from "figma:asset/95d7a9441ece29d0959b696f896ad7aa18c44dda.png";
-import imgMikeChen from "figma:asset/8f8739691b761475875d05de592ee9166a999b67.png";
-import imgEmilyRodriguez from "figma:asset/4afc0e5a544bfde91b9b95c54aae40d325105d17.png";
+import { staff as staffData, getStaffByBuilding } from 'shared-data';
+import { useRole, getCurrentStore } from '../contexts/RoleContext';
 
 export default function StaffManagement() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const { profile } = useRole();
+  const currentStore = getCurrentStore(profile);
 
-  const staff = [
-    {
-      id: 1,
-      name: 'Sarah Johnson',
-      role: 'Floor Manager',
-      avatar: imgSarahJohnson,
-      store: 'Store #01 - Hanoi',
-      email: 'sarah.johnson@aeon.vn',
-      phone: '+84 91 234 5678',
-      status: 'Active',
-      tasksCompleted: 245,
-      completionRate: 94,
-      shiftStart: '08:00',
-      shiftEnd: '17:00',
-      joinDate: '2023-01-15',
-    },
-    {
-      id: 2,
-      name: 'Mike Chen',
-      role: 'Sales Associate',
-      avatar: imgMikeChen,
-      store: 'Store #01 - Hanoi',
-      email: 'mike.chen@aeon.vn',
-      phone: '+84 91 234 5679',
-      status: 'Active',
-      tasksCompleted: 198,
-      completionRate: 88,
-      shiftStart: '09:00',
-      shiftEnd: '18:00',
-      joinDate: '2023-03-22',
-    },
-    {
-      id: 3,
-      name: 'Emily Rodriguez',
-      role: 'Cashier',
-      avatar: imgEmilyRodriguez,
-      store: 'Store #02 - Hanoi',
-      email: 'emily.rodriguez@aeon.vn',
-      phone: '+84 91 234 5680',
-      status: 'Active',
-      tasksCompleted: 312,
-      completionRate: 96,
-      shiftStart: '07:30',
-      shiftEnd: '16:30',
-      joinDate: '2022-11-10',
-    },
-    {
-      id: 4,
-      name: 'John Smith',
-      role: 'Stock Clerk',
-      avatar: null,
-      store: 'Store #03 - HCMC',
-      email: 'john.smith@aeon.vn',
-      phone: '+84 91 234 5681',
-      status: 'On Leave',
-      tasksCompleted: 167,
-      completionRate: 82,
-      shiftStart: '06:00',
-      shiftEnd: '15:00',
-      joinDate: '2024-02-01',
-    },
-    {
-      id: 5,
-      name: 'Lisa Wong',
-      role: 'Customer Service',
-      avatar: null,
-      store: 'Store #04 - HCMC',
-      email: 'lisa.wong@aeon.vn',
-      phone: '+84 91 234 5682',
-      status: 'Active',
-      tasksCompleted: 221,
-      completionRate: 91,
-      shiftStart: '10:00',
-      shiftEnd: '19:00',
-      joinDate: '2023-07-18',
-    },
-    {
-      id: 6,
-      name: 'David Park',
-      role: 'Floor Manager',
-      avatar: null,
-      store: 'Store #05 - Da Nang',
-      email: 'david.park@aeon.vn',
-      phone: '+84 91 234 5683',
-      status: 'Active',
-      tasksCompleted: 289,
-      completionRate: 93,
-      shiftStart: '08:00',
-      shiftEnd: '17:00',
-      joinDate: '2022-09-05',
-    },
-  ];
+  // Filter staff based on user role and store
+  const filteredStaffData = currentStore
+    ? getStaffByBuilding(currentStore.name)
+    : staffData;
+
+  // Transform shared-data staff to match UI requirements
+  const staff = filteredStaffData.map((s, index) => ({
+    id: index + 1,
+    name: s.name,
+    role: s.role,
+    avatar: '', // No avatars in shared-data
+    store: s.building,
+    email: `${s.name.toLowerCase().replace(/\s+/g, '.')}@aeon.vn`,
+    phone: `+84 91 234 ${5678 + index}`,
+    status: 'Active',
+    tasksCompleted: Math.floor(Math.random() * 300) + 100,
+    completionRate: s.taskAssignmentPercentage || Math.floor(Math.random() * 20) + 80,
+    shiftStart: s.shiftStart,
+    shiftEnd: s.shiftEnd,
+    joinDate: '2023-01-15',
+    city: s.city,
+    region: s.region,
+    skills: s.skills || [],
+  }));
 
   const getStatusColor = (status: string) => {
     const colors: { [key: string]: string } = {
@@ -136,14 +69,29 @@ export default function StaffManagement() {
         </div>
       </div>
 
+      {/* Data Source Indicator */}
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+        <div className="flex items-center gap-3">
+          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+          <span className="text-sm font-medium text-blue-900">
+            {currentStore
+              ? `Showing staff from ${currentStore.name}`
+              : 'Showing all staff across all stores'}
+          </span>
+          <span className="text-sm text-blue-700 ml-auto">
+            <span className="font-semibold">{staff.length}</span> Staff Members
+          </span>
+        </div>
+      </div>
+
       {/* Stats */}
       <div className="grid grid-cols-4 gap-6 mb-6">
         <div className="bg-white border border-gray-200 rounded-lg p-6">
-          <div className="text-3xl font-bold text-gray-800 mb-1">156</div>
+          <div className="text-3xl font-bold text-gray-800 mb-1">{staff.length}</div>
           <div className="text-sm text-gray-500">Total Staff</div>
         </div>
         <div className="bg-white border border-gray-200 rounded-lg p-6">
-          <div className="text-3xl font-bold text-green-600 mb-1">148</div>
+          <div className="text-3xl font-bold text-green-600 mb-1">{staff.filter(s => s.status === 'Active').length}</div>
           <div className="text-sm text-gray-500">Active Today</div>
         </div>
         <div className="bg-white border border-gray-200 rounded-lg p-6">

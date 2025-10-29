@@ -1,6 +1,6 @@
 
   {
-      "name": "Task and Shift Management App",
+      "name": "staff-task-management",
       "version": "0.1.0",
       "private": true,
       "dependencies": {
