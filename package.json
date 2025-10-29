@@ -10,8 +10,8 @@
   ],
   "scripts": {
     "install:all": "npm install && cd ai-hq-task-assignment && npm install && cd ../staff-task-management && npm install && cd ../shared-data && npm install",
-    "build:hq": "cd ai-hq-task-assignment && npm install && VERCEL=true npm run build",
-    "build:staff": "cd staff-task-management && npm install && VERCEL=true npm run build",
+    "build:hq": "cd shared-data && npm install && cd ../ai-hq-task-assignment && npm install --legacy-peer-deps && VERCEL=true npm run build",
+    "build:staff": "cd shared-data && npm install && cd ../staff-task-management && npm install --legacy-peer-deps && VERCEL=true npm run build",
     "build:all": "npm run build:hq && npm run build:staff",
     "dev:hq": "cd ai-hq-task-assignment && npm run dev",
     "dev:staff": "cd staff-task-management && npm run dev"
