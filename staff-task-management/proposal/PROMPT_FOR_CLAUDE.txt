@@ -1,0 +1,156 @@
+I need you to help me create a proposal slide deck for AEON Vietnam about a Task and Shift Management application.
+
+STYLE REFERENCE:
+- Please refer to and follow the layout, design style, and approach similar to modern consulting proposal slides
+- Use professional, clean layouts with clear typography
+- Maintain visual consistency throughout
+- Use branding elements for AEON Vietnam
+- Focus on business value and outcomes
+
+SOLUTION OVERVIEW:
+The solution is a Task & Shift Management application with three main features:
+
+1. TASK MANAGEMENT MODULE
+   - Three view modes: Timeline, Kanban, List
+   - Two task types: DWS (Daily Work Standard) and WS (Work Standard - event-based)
+   - Six task statuses: Open → Processing → Pending → Awaiting Approval → Done → Cancelled
+   - Task assignment with start/end times
+   - Performance tracking (estimated vs actual minutes)
+
+2. SHIFT MANAGEMENT MODULE
+   - Attendance tracking (check-in/check-out times)
+   - Performance monitoring (task assignment percentage)
+   - Week and Month view options
+   - Multi-staff shift visualization
+
+3. LEADERBOARD MODULE
+   - Performance rankings (Store, Regional, Global levels)
+   - Key metrics: tasks completed, completion rate, total hours, efficiency
+   - Rewards and gamification system
+   - Calendar heatmap visualization
+
+MULTI-LEVEL ORGANIZATION:
+- Store Level: Individual retail locations
+- Regional Level: Multiple stores within a city (Tower A, Tower B, Central Building)
+- Global Level: Multiple cities and regions (Hanoi stores, etc.)
+
+KEY FEATURES TO HIGHLIGHT:
+- DWS tasks with guide references (e.g., "1.2.a", "2.1.c")
+- WS tasks with sample images and photo upload capability
+- Real-time task status tracking
+- Workload balancing across staff
+- Attendance compliance monitoring
+- Performance analytics and reporting
+- Gamification through leaderboards
+- Mobile-responsive design
+
+PROPOSAL SLIDE STRUCTURE:
+
+Slide 1: Cover/Title
+Title: "Task & Shift Management Solution for AEON Vietnam"
+Subtitle: "Streamlining Operations, Enhancing Performance"
+
+Slide 2: Executive Summary
+- Brief problem statement
+- Proposed solution overview
+- Key benefits
+- Expected impact
+
+Slide 3: Current Challenges
+- Task management inefficiencies
+- Shift scheduling complexity
+- Lack of performance visibility
+- Inconsistent operations across locations
+
+Slide 4: Solution Overview
+- Three core modules (Task, Shift, Leaderboard)
+- Key capabilities
+- System benefits
+
+Slide 5: Task Management Features
+- DWS vs WS tasks explained
+- Three view modes (Timeline, Kanban, List)
+- Task workflow and statuses
+[SCREENSHOT PLACEHOLDER: Kanban view showing task cards]
+
+Slide 6: Shift Management Features
+- Attendance tracking
+- Performance monitoring
+- Shift patterns and schedules
+[SCREENSHOT PLACEHOLDER: Shift calendar with attendance indicators]
+
+Slide 7: Leaderboard & Gamification
+- Multi-level rankings (Store/Regional/Global)
+- Performance metrics
+- Rewards system
+[SCREENSHOT PLACEHOLDER: Leaderboard with top performers]
+
+Slide 8: Multi-level Organization Support
+- Store, Regional, Global hierarchy
+- Scalability
+- Centralized management
+[SCREENSHOT PLACEHOLDER: Organization level selector]
+
+Slide 9: Intelligent Features
+- Smart task assignment
+- Performance analytics
+- Real-time monitoring
+- Workload balancing
+
+Slide 10: Technical Architecture
+- React + TypeScript frontend
+- shadcn/ui components
+- Responsive design
+- Cloud-ready infrastructure
+
+Slide 11: Benefits & ROI
+- Operational improvements
+- Performance enhancements
+- Strategic advantages
+- Quantified ROI metrics
+
+Slide 12: Implementation Timeline
+- Phase 1: Setup (Weeks 1-2)
+- Phase 2: Pilot (Weeks 3-4)
+- Phase 3: Regional Rollout (Weeks 5-8)
+- Phase 4: National Rollout (Weeks 9-12)
+
+Slide 13: Support & Training
+- User training programs
+- Technical support
+- Ongoing maintenance
+- Success management
+
+Slide 14: Next Steps
+- Schedule demonstration
+- Discuss requirements
+- Plan pilot program
+- Contact information
+
+Slide 15: Thank You
+- Closing slide with contact info
+
+INSTRUCTIONS:
+1. Generate each slide with clear title and concise content
+2. Mark screenshot locations with [SCREENSHOT PLACEHOLDER: description]
+3. Use professional proposal language focusing on business value
+4. Include relevant icons, diagrams, and visual elements
+5. Keep slides concise - one key message per slide
+6. Use bullet points for clarity
+7. Include metrics and data to support claims
+8. Maintain AEON Vietnam branding context throughout
+
+OUTPUT FORMAT:
+Present each slide as:
+---
+SLIDE [NUMBER]: [TITLE]
+
+[Content here]
+
+[Visual suggestions]
+[SCREENSHOT PLACEHOLDER location marked]
+
+---
+
+Please generate the complete slide deck following this structure.
+

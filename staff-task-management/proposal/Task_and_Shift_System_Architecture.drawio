@@ -1,0 +1,225 @@
+<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="5.0" version="22.1.16" etag="drawio" type="device">
+  <diagram name="Task &amp; Shift Architecture" id="system-arch">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Background Color -->
+        <mxCell id="bg" value="" style="sketch=0;aspect=fixed;html=1;points=[];align=center;image;fontFamily=Verdana;fontSize=12;fillColor=#F5F5F5;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="1400" height="1000" as="geometry" />
+        </mxCell>
+        
+        <!-- Title -->
+        <mxCell id="title" value="HỆ THỐNG KIỂM SOÁT TASK &amp; SHIFT MANAGEMENT - TASK &amp; SHIFT APP ON AWS" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="50" y="20" width="1300" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Comprehensive Task &amp; Shift Management Solution on Cloud Platform - Flexible, Scalable, Secure" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="50" y="60" width="1300" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- USER INTERACTION LAYER -->
+        <mxCell id="user-layer-bg" value="ĐỐI TƯỢNG SỬ DỤNG" style="swimlane;html=1;startSize=40;fillColor=#E3F2FD;strokeColor=#1976D2;fontSize=14;fontStyle=1;whiteSpace=wrap;swimlaneLine=1;swimlaneFillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="50" y="100" width="850" height="150" as="geometry" />
+        </mxCell>
+        
+        <!-- Manager / HQ -->
+        <mxCell id="manager-box" value="HQ / Manager" style="swimlane;html=1;startSize=30;fillColor=#FFFFFF;strokeColor=#1976D2;whiteSpace=wrap;" vertex="1" parent="user-layer-bg">
+          <mxGeometry x="30" y="50" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="manager-icon" value="💻" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;" vertex="1" parent="manager-box">
+          <mxGeometry x="80" y="30" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="manager-text" value="Desktop PC / Laptop&#xa;Web Browser" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;" vertex="1" parent="manager-box">
+          <mxGeometry x="20" y="70" width="160" height="10" as="geometry" />
+        </mxCell>
+        
+        <!-- Staff -->
+        <mxCell id="staff-box" value="Staff / Field Workers" style="swimlane;html=1;startSize=30;fillColor=#FFFFFF;strokeColor=#1976D2;whiteSpace=wrap;" vertex="1" parent="user-layer-bg">
+          <mxGeometry x="270" y="50" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="staff-icon" value="📱" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;" vertex="1" parent="staff-box">
+          <mxGeometry x="80" y="30" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="staff-text" value="iPad Tablet&#xa;Web Browser" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;" vertex="1" parent="staff-box">
+          <mxGeometry x="20" y="70" width="160" height="10" as="geometry" />
+        </mxCell>
+        
+        <!-- Internet Connection -->
+        <mxCell id="internet-box" value="Internet / Web Access" style="swimlane;html=1;startSize=30;fillColor=#BBDEFB;strokeColor=#1976D2;whiteSpace=wrap;rounded=1;dashed=1;dashPattern=8 8;" vertex="1" parent="user-layer-bg">
+          <mxGeometry x="490" y="50" width="180" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- User to Internet arrows -->
+        <mxCell id="arrow1" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#0066CC;strokeWidth=2;" edge="1" parent="user-layer-bg" source="manager-box" target="internet-box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow2" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#0066CC;strokeWidth=2;" edge="1" parent="user-layer-bg" source="staff-box" target="internet-box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- AWS CLOUD INFRASTRUCTURE -->
+        <mxCell id="aws-cloud" value="AWS CLOUD INFRASTRUCTURE" style="swimlane;html=1;startSize=50;fillColor=#FFF3E0;strokeColor=#FF9900;fontSize=14;fontStyle=1;whiteSpace=wrap;rounded=1;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="50" y="280" width="850" height="450" as="geometry" />
+        </mxCell>
+        
+        <!-- Internet to Cloud arrow -->
+        <mxCell id="arrow3" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeColor=#0066CC;strokeWidth=3;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="590" y="250" as="sourcePoint" />
+            <mxPoint x="590" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- BUSINESS / DOMAIN SERVICES -->
+        <mxCell id="services-bg" value="BUSINESS / DOMAIN SERVICES" style="swimlane;html=1;startSize=35;fillColor=#FFFFFF;strokeColor=#666666;fontSize=13;fontStyle=1;whiteSpace=wrap;rounded=1;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="20" y="60" width="800" height="350" as="geometry" />
+        </mxCell>
+        
+        <!-- TASK MANAGEMENT SERVICES -->
+        <mxCell id="task-services" value="TASK MANAGEMENT SERVICES" style="swimlane;html=1;startSize=30;fillColor=#E8F5E9;strokeColor=#4CAF50;whiteSpace=wrap;rounded=1;" vertex="1" parent="services-bg">
+          <mxGeometry x="20" y="50" width="180" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="task-list" value="• Assignment&#xa;• Status Tracking&#xa;• Workflow Engine&#xa;• DWS/WS Router" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#2E7D32;" vertex="1" parent="task-services">
+          <mxGeometry x="10" y="40" width="160" height="90" as="geometry" />
+        </mxCell>
+        
+        <!-- SHIFT MANAGEMENT SERVICES -->
+        <mxCell id="shift-services" value="SHIFT MANAGEMENT SERVICES" style="swimlane;html=1;startSize=30;fillColor=#E3F2FD;strokeColor=#2196F3;whiteSpace=wrap;rounded=1;" vertex="1" parent="services-bg">
+          <mxGeometry x="220" y="50" width="180" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="shift-list" value="• Scheduling&#xa;• Attendance&#xa;• Check-in/out&#xa;• Analytics" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#1565C0;" vertex="1" parent="shift-services">
+          <mxGeometry x="10" y="40" width="160" height="90" as="geometry" />
+        </mxCell>
+        
+        <!-- PERFORMANCE & ANALYTICS -->
+        <mxCell id="perf-services" value="PERFORMANCE SERVICES" style="swimlane;html=1;startSize=30;fillColor=#FFF3E0;strokeColor=#FF9800;whiteSpace=wrap;rounded=1;" vertex="1" parent="services-bg">
+          <mxGeometry x="420" y="50" width="180" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="perf-list" value="• Leaderboard&#xa;• Metrics&#xa;• Reporting&#xa;• Real-time Analytics" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#E65100;" vertex="1" parent="perf-services">
+          <mxGeometry x="10" y="40" width="160" height="90" as="geometry" />
+        </mxCell>
+        
+        <!-- GAMIFICATION SERVICES -->
+        <mxCell id="gamif-services" value="GAMIFICATION SERVICES" style="swimlane;html=1;startSize=30;fillColor=#F3E5F5;strokeColor=#9C27B0;whiteSpace=wrap;rounded=1;" vertex="1" parent="services-bg">
+          <mxGeometry x="620" y="50" width="160" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="gamif-list" value="• Rankings&#xa;• Rewards&#xa;• Achievements&#xa;• Rules Engine" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#6A1B9A;" vertex="1" parent="gamif-services">
+          <mxGeometry x="10" y="40" width="140" height="90" as="geometry" />
+        </mxCell>
+        
+        <!-- CORE SERVICES (Bottom Row) -->
+        <mxCell id="core-services" value="CORE SERVICES" style="swimlane;html=1;startSize=30;fillColor=#ECEFF1;strokeColor=#607D8B;whiteSpace=wrap;rounded=1;" vertex="1" parent="services-bg">
+          <mxGeometry x="20" y="210" width="760" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="core-list" value="• User Authentication &amp; Authorization • Data Synchronization • Notification Service • API Gateway • Workflow Engine" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#37474F;" vertex="1" parent="core-services">
+          <mxGeometry x="20" y="40" width="720" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- EXTERNAL SYSTEM LINKAGE -->
+        <mxCell id="external-layer" value="HỆ THỐNG BÊN NGOÀI" style="swimlane;html=1;startSize=40;fillColor=#FFF9E6;strokeColor=#FFB300;fontSize=14;fontStyle=1;whiteSpace=wrap;rounded=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="950" y="280" width="350" height="450" as="geometry" />
+        </mxCell>
+        
+        <!-- API INTEGRATION -->
+        <mxCell id="api-box" value="API INTEGRATION (REST API)" style="swimlane;html=1;startSize=35;fillColor=#FFEBEE;strokeColor=#D32F2F;whiteSpace=wrap;rounded=1;" vertex="1" parent="external-layer">
+          <mxGeometry x="20" y="60" width="300" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Cloud to API arrow -->
+        <mxCell id="arrow4" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#D32F2F;strokeWidth=3;dashed=1;dashPattern=8 8;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="505" as="sourcePoint" />
+            <mxPoint x="970" y="505" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="920" y="505" />
+              <mxPoint x="950" y="505" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- EDOC System -->
+        <mxCell id="edoc-box" value="EDOC SYSTEM" style="swimlane;html=1;startSize=35;fillColor=#FFFFFF;strokeColor=#F57C00;whiteSpace=wrap;rounded=1;strokeWidth=2;" vertex="1" parent="external-layer">
+          <mxGeometry x="20" y="140" width="300" height="260" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edoc-title" value="ONE-WAY DATA SYNC" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontColor=#E65100;" vertex="1" parent="edoc-box">
+          <mxGeometry x="20" y="45" width="260" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="edoc-data1" value="📋 Staff Data" style="swimlane;html=1;startSize=25;fillColor=#FFF3E0;strokeColor=#FF9800;whiteSpace=wrap;rounded=1;" vertex="1" parent="edoc-box">
+          <mxGeometry x="20" y="80" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="edoc-data2" value="🕐 Shift Data" style="swimlane;html=1;startSize=25;fillColor=#FFF3E0;strokeColor=#FF9800;whiteSpace=wrap;rounded=1;" vertex="1" parent="edoc-box">
+          <mxGeometry x="20" y="140" width="260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="edoc-data3" value="📅 Days Off Data" style="swimlane;html=1;startSize=25;fillColor=#FFF3E0;strokeColor=#FF9800;whiteSpace=wrap;rounded=1;" vertex="1" parent="edoc-box">
+          <mxGeometry x="20" y="200" width="260" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- API to EDOC arrow -->
+        <mxCell id="arrow5" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeColor=#D32F2F;strokeWidth=2;" edge="1" parent="external-layer" source="api-box" target="edoc-box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Key Benefits Box -->
+        <mxCell id="benefits-bg" value="KEY BENEFITS" style="swimlane;html=1;startSize=30;fillColor=#E8F5E9;strokeColor=#4CAF50;fontSize=13;fontStyle=1;whiteSpace=wrap;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="760" width="1300" height="200" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="benefit1" value="☁️ CLOUD-BASED" style="swimlane;html=1;startSize=25;fillColor=#FFFFFF;strokeColor=#4CAF50;whiteSpace=wrap;rounded=1;" vertex="1" parent="benefits-bg">
+          <mxGeometry x="30" y="40" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="benefit1-text" value="Scalable AWS infrastructure" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;" vertex="1" parent="benefit1">
+          <mxGeometry x="5" y="25" width="190" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="benefit2" value="🔗 EDOC INTEGRATION" style="swimlane;html=1;startSize=25;fillColor=#FFFFFF;strokeColor=#4CAF50;whiteSpace=wrap;rounded=1;" vertex="1" parent="benefits-bg">
+          <mxGeometry x="250" y="40" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="benefit2-text" value="Automated staff data sync" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;" vertex="1" parent="benefit2">
+          <mxGeometry x="5" y="25" width="190" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="benefit3" value="⚡ REAL-TIME UPDATES" style="swimlane;html=1;startSize=25;fillColor=#FFFFFF;strokeColor=#4CAF50;whiteSpace=wrap;rounded=1;" vertex="1" parent="benefits-bg">
+          <mxGeometry x="470" y="40" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="benefit3-text" value="Instant synchronization" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;" vertex="1" parent="benefit3">
+          <mxGeometry x="5" y="25" width="190" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="benefit4" value="🔒 SECURITY" style="swimlane;html=1;startSize=25;fillColor=#FFFFFF;strokeColor=#4CAF50;whiteSpace=wrap;rounded=1;" vertex="1" parent="benefits-bg">
+          <mxGeometry x="690" y="40" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="benefit4-text" value="Bank-grade security on AWS" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;" vertex="1" parent="benefit4">
+          <mxGeometry x="5" y="25" width="170" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="benefit5" value="📱 OFFLINE CAPABLE" style="swimlane;html=1;startSize=25;fillColor=#FFFFFF;strokeColor=#4CAF50;whiteSpace=wrap;rounded=1;" vertex="1" parent="benefits-bg">
+          <mxGeometry x="890" y="40" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="benefit5-text" value="Uninterrupted operation" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;" vertex="1" parent="benefit5">
+          <mxGeometry x="5" y="25" width="170" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="benefit6" value="♾️ INFINITE SCALE" style="swimlane;html=1;startSize=25;fillColor=#FFFFFF;strokeColor=#4CAF50;whiteSpace=wrap;rounded=1;" vertex="1" parent="benefits-bg">
+          <mxGeometry x="1090" y="40" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="benefit6-text" value="Unlimited growth potential" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;" vertex="1" parent="benefit6">
+          <mxGeometry x="5" y="25" width="170" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Technical Details -->
+        <mxCell id="tech-details" value="🔧 TECHNICAL DETAILS" style="swimlane;html=1;startSize=25;fillColor=#E3F2FD;strokeColor=#1976D2;whiteSpace=wrap;rounded=1;" vertex="1" parent="benefits-bg">
+          <mxGeometry x="30" y="110" width="1230" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tech-text" value="✓ Access via web browser • No software installation required • Multi-device compatible (Desktop &amp; Tablet) • Real-time synchronization • Bank-grade security" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#1565C0;" vertex="1" parent="tech-details">
+          <mxGeometry x="20" y="25" width="1190" height="20" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+
+

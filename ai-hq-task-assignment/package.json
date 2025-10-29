@@ -1,0 +1,22 @@
+
+  {
+      "name": "ai-task-assignment",
+      "version": "0.1.0",
+      "private": true,
+      "dependencies": {
+          "lucide-react": "*",
+          "react": "^18.3.1",
+          "react-dom": "^18.3.1",
+          "react-router-dom": "*",
+          "shared-data": "file:../shared-data"
+      },
+      "devDependencies": {
+          "@types/node": "^20.10.0",
+          "@vitejs/plugin-react-swc": "^3.10.2",
+          "vite": "6.3.5"
+      },
+      "scripts": {
+          "dev": "vite",
+          "build": "vite build"
+      }
+  }

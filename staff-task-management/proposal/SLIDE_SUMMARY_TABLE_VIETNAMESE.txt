@@ -1,0 +1,487 @@
+================================================================================
+AEON VIETNAM - GIẢI PHÁP QUẢN LÝ CÔNG VIỆC & CA LÀM VIỆC
+BẢNG TÓM TẮT NỘI DUNG SLIDE
+================================================================================
+
+SLIDE 1: TRANG BÌA
+--------------------------------------------------------------------------------
+HEADLINE:
+Giải Pháp Quản Lý Công Việc & Ca Làm Việc
+Tối Ưu Hóa Vận Hành, Nâng Cao Hiệu Quả
+
+SUBHEADLINE:
+Nền Tảng Số Toàn Diện cho Hoạt Động Bán Lẻ AEON Vietnam
+
+BODY TEXT:
+[Không gian trực quan cho logo AEON và thương hiệu]
+[Thiết kế chuyên nghiệp với màu sắc thương hiệu]
+
+
+================================================================================
+SLIDE 2: TÓM TẮT ĐIỀU HÀNH
+--------------------------------------------------------------------------------
+HEADLINE:
+Chuyển Đổi Quản Lý Công Việc & Ca Làm Việc cho Bán Lẻ Hiện Đại
+
+BODY TEXT:
+• Thách Thức Hiện Tại: AEON Vietnam gặp khó khăn trong quản lý vận hành các 
+  công việc hàng ngày và ca làm việc nhân viên tại nhiều cửa hàng
+
+• Giải Pháp: Nền tảng số toàn diện cung cấp quản lý công việc thời gian thực, 
+  lên lịch ca làm việc, và phân tích hiệu suất
+
+• Lợi Ích Chính: 
+  - Cải thiện 30% trong việc theo dõi vận hành
+  - Quản lý tập trung trên tất cả các cửa hàng
+  - Thông tin hiệu suất dựa trên dữ liệu
+
+• Tác Động Mong Đợi: Tăng hiệu quả vận hành, cải thiện năng suất nhân viên, 
+  và chất lượng dịch vụ nhất quán
+
+
+================================================================================
+SLIDE 3: CÁC THÁCH THỨC HIỆN TẠI
+--------------------------------------------------------------------------------
+HEADLINE:
+Giải Quyết Các Thách Thức Vận Hành Nghiêm Trọng
+
+BODY TEXT:
+Khó Khăn Quản Lý Công Việc
+• Khó khăn trong việc theo dõi hoàn thành công việc qua nhiều ca và nhân viên
+• Thiếu tầm nhìn thời gian thực vào phân bổ khối lượng công việc
+• Quy trình giao công việc thủ công dẫn đến sai sót và chậm trễ
+• Tiêu chuẩn thực thi công việc không nhất quán giữa các cửa hàng
+
+Phức Tạp Quản Lý Ca Làm Việc
+• Lập lịch phức tạp tại nhiều cửa hàng bán lẻ
+• Phương pháp theo dõi điểm danh không hiệu quả
+• Sắp xếp kém giữa khả năng nhân viên và yêu cầu công việc
+• Giám sát tuân thủ ca làm việc hạn chế
+
+Khoảng Cách Hiệu Suất
+• Không có bảng điều khiển tập trung cho số liệu hiệu suất
+• Thiếu đánh giá so sánh giữa các cửa hàng hoặc khu vực
+• Khó khăn xác định người thực hiện tốt nhất và lĩnh vực cần cải thiện
+• Gamification hạn chế để thúc đẩy và giữ chân nhân viên
+
+
+================================================================================
+SLIDE 4: TỔNG QUAN GIẢI PHÁP
+--------------------------------------------------------------------------------
+HEADLINE:
+Ứng Dụng Web Đơn Giản - Tạo Niềm Vui Cho Nhân Viên - Mở Rộng Linh Hoạt
+
+BODY TEXT:
+Giải Pháp Web-App Tích Hợp Hoàn Chỉnh
+
+🎯 Đơn Giản & Dễ Sử Dụng
+• Ứng dụng web - không cần cài đặt
+• Giao diện trực quan và thân thiện
+• Truy cập trên mọi thiết bị (Desktop, Tablet, Mobile)
+• Đào tạo nhanh chóng cho nhân viên
+
+😊 Tạo Niềm Vui & Thúc Đẩy Nhân Viên
+• Gamification với bảng xếp hạng hấp dẫn
+• Hệ thống điểm thưởng và thành tựu
+• Theo dõi tiến độ cá nhân thời gian thực
+• Tạo môi trường làm việc tích cực và cạnh tranh lành mạnh
+
+📈 Mở Rộng Quy Mô Linh Hoạt
+• Phù hợp từ 1 cửa hàng đến hàng trăm cửa hàng
+• Tổ chức đa cấp: Cửa hàng → Khu vực → Toàn cục
+• Kiến trúc cloud trên AWS - mở rộng vô hạn
+• Hiệu suất ổn định khi tăng trưởng
+
+Ba Module Chính:
+
+📋 Quản Lý Công Việc: Timeline / Kanban / List
+👥 Quản Lý Ca Làm Việc: Attendance & Performance
+🏆 Bảng Xếp Hạng: Gamification & Rewards
+
+SCREENSHOT: staff-task-mgnt.png
+[Hiển thị giao diện quản lý công việc chính - đơn giản và trực quan]
+
+
+================================================================================
+SLIDE 5: QUẢN LÝ CÔNG VIỆC - CHỨC NĂNG ĐA GIAO DIỆN
+--------------------------------------------------------------------------------
+HEADLINE:
+Giao Diện Linh Hoạt cho Mọi Nhu Cầu Quản Lý
+
+BODY TEXT:
+Chế Độ Xem Timeline
+• Phân bổ công việc theo thời gian trực quan cho từng nhân viên
+• Xác định công việc chồng chéo và ràng buộc năng lực
+• Tối ưu hóa lịch trình trong nháy mắt
+
+Chế Độ Xem Kanban
+• Bảng theo cột theo dõi luồng trạng thái công việc
+• Chức năng kéo thả để cập nhật nhanh
+• Trạng thái: Mở → Đang thực hiện → Tạm dừng → Chờ phê duyệt → Hoàn thành → Hủy
+
+Chế Độ Xem Danh Sách
+• Định dạng bảng với cột có thể sắp xếp
+• Khả năng phân tích và báo cáo chi tiết
+• Lọc theo ngày, loại và nhân viên
+
+SCREENSHOT: manager-assign-task-visualization.png
+[Hiển thị trực quan hóa timeline của giao công việc]
+
+
+================================================================================
+SLIDE 6: LOẠI CÔNG VIỆC & QUY TRÌNH
+--------------------------------------------------------------------------------
+HEADLINE:
+DWS vs WS - Quản Lý Công Việc Toàn Diện
+
+BODY TEXT:
+Công Việc DWS (Tiêu Chuẩn Công Việc Hàng Ngày)
+• Công việc thường xuyên hàng ngày đã chuẩn hóa
+• Tích hợp hướng dẫn tham khảo nhanh (vd: "1.2.a", "2.1.c")
+• Thực thi nhất quán tại tất cả các cửa hàng
+• Giao và theo dõi tự động
+
+Công Việc WS (Tiêu Chuẩn Công Việc - Theo Sự Kiện)
+• Công việc thỉnh thoảng hoặc sự kiện đặc biệt
+• Hình ảnh mẫu để hướng dẫn trực quan
+• Tải lên hình ảnh để xác minh hoàn thành
+• Quy trình phê duyệt AI và HQ
+• Ví dụ sự kiện: Khuyến mãi, ngày lễ, trưng bày theo mùa
+
+Quy Trình Hoàn Chỉnh: Mở → Đang thực hiện → Tạm dừng → Chờ phê duyệt → Hoàn thành
+
+SCREENSHOT: manager-assign-task.png
+[Hiển thị chi tiết giao công việc và loại công việc]
+
+
+================================================================================
+SLIDE 7: QUẢN LÝ CA LÀM VIỆC
+--------------------------------------------------------------------------------
+HEADLINE:
+Theo Dõi Điểm Danh & Hiệu Suất Toàn Diện
+
+BODY TEXT:
+Quản Lý Điểm Danh
+• Theo dõi check-in/check-out thời gian thực
+• Phân tích mẫu điểm danh tự động
+• Giám sát tuân thủ tính đúng giờ ca làm việc
+• Cảnh báo đến muộn và về sớm
+
+Giám Sát Hiệu Suất
+• Theo dõi phần trăm giao công việc (75-100% sử dụng)
+• Phân bổ khối lượng công việc trên nhân viên
+• Số liệu hiệu quả và tỷ lệ hoàn thành
+• Xu hướng hiệu suất lịch sử
+
+Giao Diện Linh Hoạt
+• Chế độ xem theo tuần cho lập kế hoạch ngắn hạn
+• Chế độ xem theo tháng cho phân tích dài hạn
+• Bảng điều khiển hiệu suất cá nhân và nhóm
+
+SCREENSHOT: staff-shift-mgnt.png
+[Hiển thị lịch quản lý ca làm việc với theo dõi điểm danh]
+
+
+================================================================================
+SLIDE 8: BẢNG XẾP HẠNG & GAMIFICATION
+--------------------------------------------------------------------------------
+HEADLINE:
+Thúc Đẩy Hiệu Suất Thông Qua Xếp Hạng & Phần Thưởng
+
+BODY TEXT:
+Bảng Xếp Hạng Đa Cấp
+• Cấp Cửa hàng: Xếp hạng theo cửa hàng riêng lẻ
+• Cấp Khu vực: So sánh toàn thành phố
+• Cấp Toàn cục: Theo dõi hiệu suất toàn quốc
+
+Số Liệu Hiệu Suất Chính
+• Công Việc Đã Hoàn Thành: Tổng số công việc đã hoàn thành
+• Tỷ Lệ Hoàn Thành: Phần trăm công việc hoàn thành đúng giờ
+• Tổng Giờ Làm: Giờ làm việc và sử dụng thời gian
+• Điểm Hiệu Quả: Đánh giá chất lượng hiệu suất
+
+Hệ Thống Phần Thưởng
+• Phần thưởng phân cấp dựa trên mức độ hiệu suất
+• Chứng chỉ Xuất Sắc cho những người thực hiện tốt nhất
+• Chỉ báo tiến độ trực quan và huy hiệu thành tích
+• Heatmap lịch hiển thị xu hướng hiệu suất hàng ngày
+
+SCREENSHOT: staff-ranking-mgnt.png
+[Hiển thị xếp hạng bảng và số liệu hiệu suất]
+
+
+================================================================================
+SLIDE 9: BẢNG ĐIỀU KHIỂN QUẢN LÝ
+--------------------------------------------------------------------------------
+HEADLINE:
+Kiểm Soát Tập Trung & Thông Tin Thông Minh
+
+BODY TEXT:
+Giao Công Việc Thông Minh
+• Cân bằng khối lượng công việc bằng AI
+• Khớp khả năng và kỹ năng nhân viên
+• Tối ưu hóa phân phối công việc tự động
+• Ngăn chặn phân bổ quá tải và sử dụng kém
+
+Giám Sát Thời Gian Thực
+• Cập nhật trạng thái trực tiếp trên tất cả các giao diện
+• Theo dõi công việc hiện tại hiển thị công việc đang thực hiện
+• Phát hiện chồng chéo công việc cho thực thi song song
+• Chỉ báo tuân thủ ca làm việc
+
+Phân Tích & Báo Cáo
+• Bảng điều khiển phân tích hiệu suất
+• Theo dõi ước tính thời gian vs thực thi thực tế
+• Phân tích mẫu điểm danh
+• Nhận dạng xu hướng và dự báo
+
+SCREENSHOT: manager-staff-mgnt.png
+[Hiển thị giao diện quản lý nhân viên toàn diện của người quản lý]
+
+
+================================================================================
+SLIDE 10: TỔ CHỨC ĐA CẤP
+--------------------------------------------------------------------------------
+HEADLINE:
+Mở Rộng Quy Mô từ Cửa Hàng Đơn đến Hoạt Động Toàn Quốc
+
+BODY TEXT:
+Ba Cấp Tổ Chức
+
+Cấp Cửa Hàng
+• Quản lý cửa hàng bán lẻ riêng lẻ
+• Ví dụ: Tòa nhà Ocean Park Hawaii
+• Theo dõi nhân viên và công việc theo cửa hàng
+
+Cấp Khu Vực
+• Nhiều cửa hàng trong một thành phố
+• Ví dụ: Khu vực Ocean Park (Tháp A, Tháp B, Tòa nhà Trung tâm)
+• So sánh hiệu suất giữa các cửa hàng
+
+Cấp Toàn Cục
+• Nhiều thành phố và khu vực
+• Ví dụ: Cửa hàng Hà Nội (Long Biên, Đống Đa, Cầu Giấy)
+• Giám sát tập trung và đánh giá so sánh
+
+Lợi Ích Phân Cấp
+• Tầm nhìn thời gian thực từ cửa hàng đến toàn cục
+• Phân tích hiệu suất so sánh
+• Mẫu công việc tập trung và hướng dẫn
+• Kiến trúc mở rộng hỗ trợ tăng trưởng
+
+
+================================================================================
+SLIDE 11: TÍNH NĂNG THÔNG MINH
+--------------------------------------------------------------------------------
+HEADLINE:
+Khả Năng Tiên Tiến cho Bán Lẻ Hiện Đại
+
+BODY TEXT:
+Thuật Toán Giao Công Việc Thông Minh
+• Lập lịch công việc tự động dựa trên khả năng nhân viên
+• Cân bằng khối lượng công việc để đảm bảo phân phối công bằng
+• Theo dõi phần trăm giao công việc (75-100% sử dụng)
+• Phân bổ công việc dựa trên ưu tiên
+
+Hệ Thống Xác Minh AI
+• Xác minh tải lên hình ảnh cho công việc WS
+• Kiểm tra chất lượng tự động
+• Quy trình phê duyệt HQ cho công việc quan trọng
+• Giảm 60% thời gian xác minh thủ công
+
+Phân Tích Hiệu Suất
+• Đánh giá hiệu quả thời gian thực
+• Lập kế hoạch năng lực dự đoán
+• Xác định điểm nghẽn
+• Phân tích xu hướng và dự báo
+
+Thiết Kế Đáp Ứng Điện Thoại
+• Truy cập trên bất kỳ thiết bị nào
+• Nhân viên có thể cập nhật trạng thái khi di chuyển
+• Thông báo và cảnh báo thời gian thực
+• Khả năng ngoại tuyến với đồng bộ
+
+
+================================================================================
+SLIDE 12: KIẾN TRÚC HỆ THỐNG
+--------------------------------------------------------------------------------
+HEADLINE:
+Hệ Thống Công Nghệ Hiện Đại, Mở Rộng & An Toàn
+
+BODY TEXT:
+Tổng Quan Kiến Trúc Hệ Thống
+
+Tầng Tương Tác Người Dùng
+• WEB (Máy tính) cho truy cập HQ và Quản lý Cửa hàng
+• Máy tính bảng (iPad) cho hoạt động nhân viên tại hiện trường
+• Dựa trên trình duyệt - Không cần cài đặt
+• Đồng bộ thời gian thực trên tất cả thiết bị
+
+Cơ Sở Hạ Tầng Backend
+• Lưu trữ trên Cơ sở Hạ tầng AWS Cloud
+• React 18.3 với TypeScript frontend
+• Thư viện component shadcn/ui (Radix UI primitives)
+• Tailwind CSS cho thiết kế responsive
+• Công cụ build Vite cho hiệu suất tối ưu
+
+Tích Hợp Hệ Thống Bên Ngoài
+• Tích Hợp EDOC qua REST API
+• Đồng bộ dữ liệu một chiều
+• Nhập dữ liệu nhân viên tự động
+• Đồng bộ ca làm việc và ngày nghỉ tự động
+
+Lợi Ích Chính
+✅ DỰA TRÊN CLOUD: Cơ sở hạ tầng AWS mở rộng
+✅ TÍCH HỢP EDOC: Đồng bộ dữ liệu tự động
+✅ CẬP NHẬT THỜI GIAN THỰC: Đồng bộ tức thời đa cửa hàng
+✅ BẢO MẬT DOANH NGHIỆP: Bảo mật cấp ngân hàng
+✅ KHẢ NĂNG NGOẠI TUYẾN: Hoạt động không bị gián đoạn
+✅ QUY MÔ VÔ HẠN: Tiềm năng tăng trưởng không giới hạn
+
+[CHÈN SƠ ĐỒ KIẾN TRÚC HỆ THỐNG Ở ĐÂY]
+Xem: proposal/SYSTEM_ARCHITECTURE_DIAGRAM.md để biết chi tiết về sơ đồ
+
+
+================================================================================
+SLIDE 13: LỢI ÍCH & ROI
+--------------------------------------------------------------------------------
+HEADLINE:
+Tác Động Có Thể Đo Lường được lên Vận Hành & Hiệu Suất
+
+BODY TEXT:
+Lợi Ích Vận Hành
+✅ Cải thiện 30% độ chính xác theo dõi hoàn thành công việc
+✅ Giảm 40% thời gian quản lý công việc hành chính
+✅ Độ chính xác 99% trong theo dõi điểm danh
+✅ Tầm nhìn thời gian thực trên tất cả cửa hàng bán lẻ
+
+Cải Thiện Hiệu Suất
+✅ Tăng 25% tỷ lệ hoàn thành công việc
+✅ Cải thiện 35% năng suất nhân viên
+✅ Giảm 20% xung đột lập lịch
+✅ Phân bổ khối lượng công việc công bằng trên tất cả nhân viên
+
+Lợi Thế Chiến Lược
+• Kiểm soát tập trung với sự linh hoạt địa phương
+• Ra quyết định dựa trên dữ liệu
+• Chất lượng nhất quán trên tất cả cửa hàng
+• Mở rộng quy mô từ cửa hàng đơn đến toàn quốc
+
+Thu Hồi Vốn Đầu Tư
+• Giảm chi phí vận hành overhead
+• Cải thiện giữ chân nhân viên thông qua gamification
+• Tăng chất lượng dịch vụ khách hàng
+• Triển khai tiêu chuẩn vận hành nhanh hơn
+
+
+================================================================================
+SLIDE 14: LỘ TRÌNH TRIỂN KHAI
+--------------------------------------------------------------------------------
+HEADLINE:
+Triển Khai Phân Cấp để Giảm Thiểu Rủi Ro & Tối Đa Thành Công
+
+BODY TEXT:
+Giai Đoạn 1: Thiết Lập & Cấu Hình (Tuần 1-2)
+• Cấu hình và tùy chỉnh hệ thống
+• Di chuyển và onboarding dữ liệu nhân viên
+• Tạo mẫu công việc và hướng dẫn ban đầu
+• Đào tạo và chuyển giao kiến thức nhóm
+
+Giai Đoạn 2: Khởi Chạy Thí Điểm (Tuần 3-4)
+• Triển khai đến 1-2 cửa hàng thí điểm
+• Đào tạo và onboarding người dùng
+• Thu thập phản hồi người dùng và dữ liệu hiệu suất
+• Tinh chỉnh hệ thống dựa trên học hỏi
+
+Giai Đoạn 3: Triển Khai Khu Vực (Tuần 5-8)
+• Mở rộng đến cửa hàng khu vực
+• Giám sát và hỗ trợ liên tục
+• Tối ưu hóa hiệu suất
+• Tài liệu best practices
+
+Giai Đoạn 4: Triển Khai Toàn Quốc (Tuần 9-12)
+• Mở rộng quy mô đến tất cả cửa hàng AEON Vietnam
+• Tối ưu hóa và tinh chỉnh cuối cùng
+• Chuyển sang chế độ hỗ trợ và bảo trì
+• Đánh giá số liệu thành công
+
+
+================================================================================
+SLIDE 15: HỖ TRỢ & ĐÀO TẠO
+--------------------------------------------------------------------------------
+HEADLINE:
+Hỗ Trợ Toàn Diện cho Thành Công Dài Hạn
+
+BODY TEXT:
+Chương Trình Đào Tạo
+• Đào tạo quản lý cho quản trị và báo cáo
+• Đào tạo nhân viên cho thực thi và cập nhật trạng thái công việc
+• Đào tạo giám sát viên cho giám sát hiệu suất
+• Chương trình đào tạo-trainer cho mở rộng quy mô
+
+Hỗ Trợ Kỹ Thuật
+• Nhóm hỗ trợ chuyên dụng có sẵn trong giờ làm việc
+• Bàn trợ giúp cho giải quyết vấn đề và câu hỏi
+• Kiểm tra sức khỏe hệ thống và giám sát thường xuyên
+• Xác định và giải quyết vấn đề chủ động
+
+Tài Liệu
+• Hướng dẫn người dùng và sổ tay vận hành toàn diện
+• Video hướng dẫn và thẻ tham khảo nhanh
+• Tài liệu best practices
+• FAQ và hướng dẫn khắc phục sự cố
+
+Tối Ưu Hóa Liên Tục
+• Cập nhật và cải tiến hệ thống thường xuyên
+• Cải tiến tính năng dựa trên phản hồi người dùng
+• Điều chỉnh và tối ưu hóa hiệu suất
+• Quản lý thành công và cải tiến liên tục
+
+
+================================================================================
+SLIDE 16: BƯỚC TIẾP THEO
+--------------------------------------------------------------------------------
+HEADLINE:
+Hãy Cùng Chuyển Đổi Vận Hành của AEON Vietnam
+
+BODY TEXT:
+Hành Động Ngay Lập Tức
+1. Lên lịch trình diễn sản phẩm toàn diện
+2. Thảo luận yêu cầu cụ thể và nhu cầu tùy chỉnh
+3. Hoàn thiện lộ trình triển khai và chương trình thí điểm
+4. Ký thỏa thuận dịch vụ chính
+
+Lợi Ích Kết Nối
+• Chương trình thí điểm không rủi ro để xác thực hiệu suất hệ thống
+• Triển khai phân cấp với hỗ trợ liên tục tại mỗi giai đoạn
+• Cấu hình tùy chỉnh để khớp với quy trình làm việc của AEON Vietnam
+• Đối tác dài hạn để cải tiến liên tục
+
+Thông Tin Liên Hệ
+[Tên Công Ty Của Bạn]
+[Người Liên Hệ]
+[Số Điện Thoại]
+[Email]
+[Website]
+
+
+================================================================================
+SLIDE 17: CẢM ƠN
+--------------------------------------------------------------------------------
+HEADLINE:
+Cảm Ơn Quý Vị Đã Dành Thời Gian & Cân Nhắc
+
+SUBHEADLINE:
+Chúng Tôi Mong Đợi Được Đối Tác với AEON Vietnam
+
+PHẦN TRỰC QUAN:
+[Logo AEON Vietnam]
+
+BODY TEXT:
+Câu Hỏi & Thảo Luận
+
+
+================================================================================
+KẾT THÚC SLIDE DECK
+================================================================================
+

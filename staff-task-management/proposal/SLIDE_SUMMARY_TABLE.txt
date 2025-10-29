@@ -1,0 +1,487 @@
+================================================================================
+AEON VIETNAM - TASK & SHIFT MANAGEMENT SOLUTION
+SLIDE CONTENT SUMMARY TABLE
+================================================================================
+
+SLIDE 1: COVER PAGE
+--------------------------------------------------------------------------------
+HEADLINE:
+Task & Shift Management Solution
+Streamlining Operations, Enhancing Performance
+
+SUBHEADLINE:
+Comprehensive Digital Platform for AEON Vietnam Retail Operations
+
+BODY TEXT:
+[Visual space for AEON logo and branding]
+[Professional design with brand colors]
+
+
+================================================================================
+SLIDE 2: EXECUTIVE SUMMARY
+--------------------------------------------------------------------------------
+HEADLINE:
+Transforming Task & Shift Management for Modern Retail Operations
+
+BODY TEXT:
+• Current Challenge: AEON Vietnam faces operational inefficiencies in managing 
+  daily tasks and staff shifts across multiple retail locations
+
+• Our Solution: A comprehensive digital platform providing real-time task 
+  management, shift scheduling, and performance analytics
+
+• Key Benefits: 
+  - 30% improvement in operational visibility
+  - Centralized management across all locations
+  - Data-driven performance insights
+
+• Expected Impact: Enhanced operational efficiency, improved staff productivity, 
+  and consistent service quality
+
+
+================================================================================
+SLIDE 3: CURRENT CHALLENGES
+--------------------------------------------------------------------------------
+HEADLINE:
+Addressing Critical Operational Challenges
+
+BODY TEXT:
+Task Management Inefficiencies
+• Difficulty tracking task completion across multiple shifts and staff
+• Lack of real-time visibility into workload distribution
+• Manual task assignment processes leading to errors and delays
+• Inconsistent task execution standards across locations
+
+Shift Management Complexity
+• Complex scheduling across multiple retail locations
+• Inefficient attendance tracking methods
+• Poor alignment between staff availability and task requirements
+• Limited compliance monitoring for shift attendance
+
+Performance Visibility Gaps
+• No centralized dashboard for performance metrics
+• Absence of benchmarking across stores or regions
+• Difficulty identifying top performers and areas for improvement
+• Limited gamification to motivate and retain staff
+
+
+================================================================================
+SLIDE 4: SOLUTION OVERVIEW
+--------------------------------------------------------------------------------
+HEADLINE:
+Simple Web App - Brings Joy to Staff - Highly Scalable
+
+BODY TEXT:
+Complete Web-App Solution
+
+🎯 Simple & Easy to Use
+• Web application - no installation required
+• Intuitive and user-friendly interface
+• Accessible on all devices (Desktop, Tablet, Mobile)
+• Quick training for staff
+
+😊 Creates Joy & Motivates Staff
+• Gamification with engaging leaderboards
+• Rewards and achievement system
+• Real-time personal progress tracking
+• Creates positive work environment and healthy competition
+
+📈 Highly Scalable
+• Works from 1 store to hundreds of stores
+• Multi-level organization: Store → Regional → Global
+• Cloud architecture on AWS - unlimited scaling
+• Consistent performance as you grow
+
+Three Core Modules:
+
+📋 Task Management: Timeline / Kanban / List
+👥 Shift Management: Attendance & Performance
+🏆 Leaderboard: Gamification & Rewards
+
+SCREENSHOT: staff-task-mgnt.png
+[Shows main task management interface - simple and intuitive]
+
+
+================================================================================
+SLIDE 5: TASK MANAGEMENT - MULTI-VIEW FUNCTIONALITY
+--------------------------------------------------------------------------------
+HEADLINE:
+Flexible Views for Every Management Need
+
+BODY TEXT:
+Timeline View
+• Visual time-based task allocation per staff member
+• Identify overlapping tasks and capacity constraints
+• Schedule optimization at a glance
+
+Kanban View
+• Column-based board tracking task status flow
+• Drag-and-drop functionality for quick updates
+• Status: Open → Processing → Pending → Awaiting Approval → Done → Cancelled
+
+List View
+• Tabular format with sortable columns
+• Detailed analysis and reporting capabilities
+• Filter by date, type, and staff member
+
+SCREENSHOT: manager-assign-task-visualization.png
+[Shows timeline/visualization of task assignment]
+
+
+================================================================================
+SLIDE 6: TASK TYPES & WORKFLOW
+--------------------------------------------------------------------------------
+HEADLINE:
+DWS vs WS Tasks - Comprehensive Task Management
+
+BODY TEXT:
+DWS Tasks (Daily Work Standard)
+• Standardized daily routine tasks
+• Quick reference guide integration (e.g., "1.2.a", "2.1.c")
+• Consistent execution across all locations
+• Automatic assignment and tracking
+
+WS Tasks (Work Standard - Event-based)
+• Occasional or special event tasks
+• Sample images for visual guidance
+• Photo upload for completion verification
+• AI verification and HQ approval workflow
+• Event examples: Promotions, holidays, seasonal displays
+
+Complete Workflow: Open → Processing → Pending → Awaiting Approval → Done
+
+SCREENSHOT: manager-assign-task.png
+[Shows task assignment details and task types]
+
+
+================================================================================
+SLIDE 7: SHIFT MANAGEMENT
+--------------------------------------------------------------------------------
+HEADLINE:
+Comprehensive Attendance & Performance Tracking
+
+BODY TEXT:
+Attendance Management
+• Real-time check-in/check-out tracking
+• Automated attendance pattern analysis
+• Compliance monitoring for shift punctuality
+• Late arrival and early departure alerts
+
+Performance Monitoring
+• Task assignment percentage tracking (75-100% utilization)
+• Workload distribution across staff
+• Efficiency metrics and completion rates
+• Historical performance trends
+
+Flexible Views
+• Week view for short-term planning
+• Month view for long-term analysis
+• Individual and team performance dashboards
+
+SCREENSHOT: staff-shift-mgnt.png
+[Shows shift management calendar with attendance tracking]
+
+
+================================================================================
+SLIDE 8: LEADERBOARD & GAMIFICATION
+--------------------------------------------------------------------------------
+HEADLINE:
+Motivating Performance Through Rankings and Rewards
+
+BODY TEXT:
+Multi-Level Leaderboards
+• Store Level: Individual location rankings
+• Regional Level: City-wide comparisons
+• Global Level: Nationwide performance tracking
+
+Key Performance Metrics
+• Tasks Completed: Total number of completed tasks
+• Completion Rate: Percentage of tasks finished on time
+• Total Hours: Worked hours and time utilization
+• Efficiency Score: Performance quality rating
+
+Rewards System
+• Tiered rewards based on performance levels
+• Certificates of Excellence for top performers
+• Visual progress indicators and achievement badges
+• Calendar heatmap showing daily performance trends
+
+SCREENSHOT: staff-ranking-mgnt.png
+[Shows leaderboard rankings and performance metrics]
+
+
+================================================================================
+SLIDE 9: MANAGER DASHBOARD
+--------------------------------------------------------------------------------
+HEADLINE:
+Centralized Control and Intelligent Insights
+
+BODY TEXT:
+Smart Task Assignment
+• AI-powered workload balancing
+• Staff availability and skill matching
+• Automatic task distribution optimization
+• Prevent over-allocation and under-utilization
+
+Real-Time Monitoring
+• Live status updates across all views
+• Current task tracking showing tasks in progress
+• Task overlap detection for parallel execution
+• Shift compliance indicators
+
+Analytics & Reporting
+• Performance analytics dashboard
+• Time estimation vs actual execution tracking
+• Attendance pattern analysis
+• Trend identification and forecasting
+
+SCREENSHOT: manager-staff-mgnt.png
+[Shows manager's comprehensive staff management view]
+
+
+================================================================================
+SLIDE 10: MULTI-LEVEL ORGANIZATION
+--------------------------------------------------------------------------------
+HEADLINE:
+Scalable from Single Store to Nationwide Operations
+
+BODY TEXT:
+Three Organizational Levels
+
+Store Level
+• Individual retail location management
+• Example: Ocean Park Hawaii Building
+• Staff and task tracking per location
+
+Regional Level
+• Multiple stores within a city
+• Example: Ocean Park region (Tower A, Tower B, Central Building)
+• Cross-store performance comparison
+
+Global Level
+• Multiple cities and regions
+• Example: Hanoi stores (Long Bien, Dong Da, Cau Giay)
+• Centralized oversight and benchmarking
+
+Hierarchical Benefits
+• Real-time visibility from store to global level
+• Comparative performance analysis
+• Centralized task templates and guidelines
+• Scalable architecture supporting growth
+
+
+================================================================================
+SLIDE 11: INTELLIGENT FEATURES
+--------------------------------------------------------------------------------
+HEADLINE:
+Advanced Capabilities for Modern Retail Operations
+
+BODY TEXT:
+Smart Assignment Algorithms
+• Automatic task scheduling based on staff availability
+• Workload balancing to ensure fair distribution
+• Task assignment percentage tracking (75-100% utilization)
+• Priority-based task allocation
+
+AI Verification System
+• Photo upload verification for WS tasks
+• Automated quality checks
+• HQ approval workflow for critical tasks
+• Reduces manual verification time by 60%
+
+Performance Analytics
+• Real-time efficiency scoring
+• Predictive capacity planning
+• Bottleneck identification
+• Trend analysis and forecasting
+
+Mobile-Responsive Design
+• Accessible on any device
+• Staff can update status on-the-go
+• Real-time notifications and alerts
+• Offline capability with sync
+
+
+================================================================================
+SLIDE 12: TECHNICAL ARCHITECTURE
+--------------------------------------------------------------------------------
+HEADLINE:
+Modern, Scalable, and Secure Technology Stack
+
+BODY TEXT:
+System Architecture Overview
+
+User Interaction Layer
+• WEB (Desktop) for HQ and Store Manager access
+• Tablet (iPad) for Staff field operations
+• Browser-based - No installation required
+• Real-time synchronization across all devices
+
+Backend Infrastructure
+• Hosted on AWS Cloud Infrastructure
+• React 18.3 with TypeScript frontend
+• shadcn/ui component library (Radix UI primitives)
+• Tailwind CSS for responsive styling
+• Vite build tool for optimal performance
+
+External System Integration
+• EDOC Integration via REST API
+• One-way data synchronization
+• Automated staff data import
+• Automated shift and days off sync
+
+Key Benefits
+✅ CLOUD-BASED: Scalable AWS infrastructure
+✅ EDOC INTEGRATION: Automated data sync
+✅ REAL-TIME UPDATES: Instant multi-location sync
+✅ ENTERPRISE SECURITY: Bank-grade security
+✅ OFFLINE CAPABLE: Uninterrupted operation
+✅ INFINITE SCALE: Unlimited growth potential
+
+[INSERT SYSTEM ARCHITECTURE DIAGRAM HERE]
+See: proposal/SYSTEM_ARCHITECTURE_DIAGRAM.md for diagram specifications
+
+
+================================================================================
+SLIDE 13: BENEFITS & ROI
+--------------------------------------------------------------------------------
+HEADLINE:
+Measurable Impact on Operations and Performance
+
+BODY TEXT:
+Operational Benefits
+✅ 30% improvement in task completion tracking accuracy
+✅ 40% reduction in task management administrative time
+✅ 99% accuracy in attendance tracking
+✅ Real-time visibility across all retail locations
+
+Performance Improvements
+✅ 25% increase in task completion rates
+✅ 35% improvement in staff productivity
+✅ 20% reduction in scheduling conflicts
+✅ Fair workload distribution across all staff members
+
+Strategic Advantages
+• Centralized control with local flexibility
+• Data-driven decision making
+• Consistent quality across all locations
+• Scalable from single store to nationwide
+
+Return on Investment
+• Reduced operational overhead costs
+• Improved staff retention through gamification
+• Enhanced customer service quality
+• Faster implementation of operational standards
+
+
+================================================================================
+SLIDE 14: IMPLEMENTATION TIMELINE
+--------------------------------------------------------------------------------
+HEADLINE:
+Phased Rollout for Minimized Risk and Maximum Success
+
+BODY TEXT:
+Phase 1: Setup & Configuration (Weeks 1-2)
+• System configuration and customization
+• Staff data migration and onboarding
+• Initial task templates and guide creation
+• Team training and knowledge transfer
+
+Phase 2: Pilot Launch (Weeks 3-4)
+• Deployment to 1-2 pilot stores
+• User training and onboarding
+• Collect user feedback and performance data
+• System refinement based on learnings
+
+Phase 3: Regional Rollout (Weeks 5-8)
+• Expand to regional stores
+• Continuous monitoring and support
+• Performance optimization
+• Best practice documentation
+
+Phase 4: National Rollout (Weeks 9-12)
+• Scale to all AEON Vietnam locations
+• Final optimization and fine-tuning
+• Transition to support and maintenance mode
+• Success metrics evaluation
+
+
+================================================================================
+SLIDE 15: SUPPORT & TRAINING
+--------------------------------------------------------------------------------
+HEADLINE:
+Comprehensive Support for Long-Term Success
+
+BODY TEXT:
+Training Programs
+• Manager training for administration and reporting
+• Staff training for task execution and status updates
+• Supervisor training for performance monitoring
+• Train-the-trainer program for scalability
+
+Technical Support
+• Dedicated support team available during business hours
+• Help desk for issue resolution and questions
+• Regular system health checks and monitoring
+• Proactive identification and resolution of issues
+
+Documentation
+• Comprehensive user guides and operational manuals
+• Video tutorials and quick reference cards
+• Best practices documentation
+• FAQ and troubleshooting guides
+
+Ongoing Optimization
+• Regular system updates and enhancements
+• Feature improvements based on user feedback
+• Performance tuning and optimization
+• Success management and continuous improvement
+
+
+================================================================================
+SLIDE 16: NEXT STEPS
+--------------------------------------------------------------------------------
+HEADLINE:
+Let's Transform AEON Vietnam's Operations Together
+
+BODY TEXT:
+Immediate Actions
+1. Schedule a comprehensive product demonstration
+2. Discuss specific requirements and customization needs
+3. Finalize implementation timeline and pilot program
+4. Sign master services agreement
+
+Engagement Benefits
+• Risk-free pilot program to validate system performance
+• Phased rollout with continuous support at each stage
+• Customized configuration to match AEON Vietnam's workflows
+• Long-term partnership for ongoing improvement
+
+Contact Information
+[Your Company Name]
+[Contact Person]
+[Phone Number]
+[Email Address]
+[Website]
+
+
+================================================================================
+SLIDE 17: THANK YOU
+--------------------------------------------------------------------------------
+HEADLINE:
+Thank You for Your Time and Consideration
+
+SUBHEADLINE:
+We look forward to partnering with AEON Vietnam
+
+VISUAL ELEMENT:
+[AEON Vietnam Logo]
+
+BODY TEXT:
+Questions & Discussion
+
+
+================================================================================
+END OF SLIDE DECK
+================================================================================
+

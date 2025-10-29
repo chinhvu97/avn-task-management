@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__serena__list_dir",
+      "mcp__serena__get_symbols_overview",
+      "Bash(npm run dev:*)",
+      "mcp__serena__find_file",
+      "Read(//Users/macbook/Documents/ops/AVN/sourcecode/staff-task-management/**)",
+      "Bash(cat:*)",
+      "Bash(chmod:*)",
+      "Bash(git init:*)",
+      "Bash(git branch:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial commit: RetailFlow Manager HQ/Store Manager UI\n\nProject: AEON Vietnam retail task and shift management system\nTech Stack: React 18.3 + TypeScript + Vite + Tailwind CSS\n\nFeatures Implemented:\n- Role-based demo system (HQ, Store Manager, SI, AM)\n- AI Task Assignment with 4 scenarios (Balanced, Speed, Efficiency, Custom)\n- Task Monitoring (Timeline/Kanban/List views)\n- DWS Templates (110 daily tasks with manual references)\n- WS Templates (Event tasks with photo verification)\n- Staff Management (Grid/List views)\n- Shift Schedule (Weekly calendar)\n- Leave Requests (Approval workflow)\n- Leaderboard (Multi-level rankings)\n- Dashboard (Stats, recent tasks, store performance)\n\nPages Status:\n- 9 pages fully functional (69% complete)\n- 4 pages placeholder (Attendance, Performance, StoreList, Settings)\n- Role switcher with dynamic navigation\n- Store selector for multi-store roles\n\nDocumentation:\n- CLAUDE.md: Developer guide\n- DEMO_GUIDE.md: Role-based demo instructions\n- TASK_MANAGEMENT_AUDIT.md: Feature audit vs WBS\n- PROJECT_OVERVIEW.md: Complete project documentation\n- wbs.md: Work breakdown structure\n\nReady for: Client demo and proposal screenshots\n\n🤖 Generated with Claude Code (https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

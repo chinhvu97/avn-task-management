@@ -1,0 +1,303 @@
+================================================================================
+FIGMA IMPLEMENTATION GUIDE FOR SYSTEM ARCHITECTURE DIAGRAM
+================================================================================
+
+SLIDE NUMBER: Slide 12 - Technical Architecture
+TITLE: HỆ THỐNG KIỂM SOÁT TASK & SHIFT MANAGEMENT - TASK & SHIFT APP ON AWS
+
+================================================================================
+STEP-BY-STEP IMPLEMENTATION IN FIGMA
+================================================================================
+
+1. CREATE MAIN FRAME
+   - Width: 1920px
+   - Height: 1080px
+   - Background: #FFFFFF
+   - Add title at top: "HỆ THỐNG KIỂM SOÁT TASK & SHIFT MANAGEMENT"
+   - Add subtitle: "Task & Shift App on AWS - Flexible, Scalable, Secure"
+
+2. ADD TITLE SECTION (Top)
+   -------------------------------------------------------------------------
+   Text: "ĐỐI TƯỢNG SỬ DỤNG" (Users)
+   Font: Bold, 18pt
+   
+3. CREATE USER SECTION (Top Area)
+   -------------------------------------------------------------------------
+   Left Box: "HQ / Store Manager"
+   - Icon: Desktop/Laptop icon (size: 48x48px)
+   - Text below: "Desktop PC / Laptop"
+   - Small text: "Web Browser Access"
+   - Box background: #F8F9FA
+   - Box dimensions: 280x160px
+   
+   Right Box: "Staff / Field Workers"
+   - Icon: Tablet icon (size: 48x48px)
+   - Text below: "iPad / Tablet"
+   - Small text: "Mobile Web Access"
+   - Box background: #F8F9FA
+   - Box dimensions: 280x160px
+
+4. ADD CONNECTION ARROW
+   -------------------------------------------------------------------------
+   - Draw downward arrow from both user boxes
+   - Label: "Internet / Web Access"
+   - Arrow color: #0066CC
+   - Arrow thickness: 2px
+
+5. CREATE AWS CLOUD INFRASTRUCTURE BOX (Main/Middle Area)
+   -------------------------------------------------------------------------
+   Large Box (Main container)
+   - Fill: Gradient (Orange to Blue)
+     Start: #FF9900 (AWS Orange)
+     End: #232F3E (AWS Blue)
+   - Stroke: None
+   - Dimensions: 1000x600px
+   - Rounded corners: 8px
+   - Add text "AWS CLOUD INFRASTRUCTURE" at top (White, Bold, 16pt)
+
+6. ADD SERVICES BOXES (Inside AWS container)
+   -------------------------------------------------------------------------
+   Create a white box inside with:
+   - Background: #FFFFFF
+   - Dimensions: 950x550px
+   - Position: Centered in AWS box
+   - Rounded corners: 6px
+   - Shadow: Subtle shadow for depth
+
+7. ADD SERVICE MODULES (Use Grid Layout)
+   -------------------------------------------------------------------------
+   Create 4 equal sections in the white box (use grid):
+
+   MODULE 1: TASK MANAGEMENT SERVICES
+   - Icon: Clipboard/Task icon
+   - Services:
+     • Task Assignment
+     • Status Tracking
+     • Workflow Engine
+     • DWS/WS Router
+   - Background: #F0F4FF
+   - Border: #0066CC (thin)
+
+   MODULE 2: SHIFT MANAGEMENT SERVICES
+   - Icon: Calendar/Clock icon
+   - Services:
+     • Shift Scheduling
+     • Attendance Tracking
+     • Check-in/Check-out
+     • Performance Analytics
+   - Background: #FFF4F0
+   - Border: #FF9900 (thin)
+
+   MODULE 3: PERFORMANCE & ANALYTICS
+   - Icon: Chart/Analytics icon
+   - Services:
+     • Leaderboard Service
+     • Performance Metrics
+     • Reporting Service
+     • Real-time Analytics
+   - Background: #F0FFF4
+   - Border: #228B22 (thin)
+
+   MODULE 4: GAMIFICATION SERVICES
+   - Icon: Trophy/Game icon
+   - Services:
+     • Ranking Engine
+     • Rewards Management
+     • Achievement Tracking
+     • Gamification Rules
+   - Background: #FFF8F0
+   - Border: #FFB347 (thin)
+
+8. ADD EXTERNAL SYSTEMS SECTION (Right Side)
+   -------------------------------------------------------------------------
+   Create box at right side:
+   - Title: "HỆ THỐNG BÊN NGOÀI" (External Systems)
+   - Background: #FFF9E6 (Light yellow)
+   - Dimensions: 320x500px
+   - Position: Right side of slide
+   - Padding: 20px
+
+   Inside this box:
+   - Add text "API INTEGRATION (REST API)" at top
+   - Draw downward arrow
+   
+   Add EDOC System box:
+   - Background: #FFE6CC
+   - Border: #FF6600
+   - Dimensions: 280x400px
+   - Title: "EDOC SYSTEM"
+   
+   Add data types:
+   - • Staff Data
+   - • Shift Data
+   - • Days Off Data
+   
+   Add "One-Way Sync" label with arrow pointing right
+
+9. ADD CONNECTION ARROWS
+   -------------------------------------------------------------------------
+   - Draw horizontal arrow from AWS to EDOC
+   - Label: "API Integration"
+   - Arrow style: Dashed line (one-way)
+   - Color: #0066CC
+
+10. ADD BOTTOM FEATURES SECTION
+    -------------------------------------------------------------------------
+    Create footer area at bottom:
+    
+    Title: "Connection Methods" (PHƯƠNG THỨC KẾT NỐI)
+    Bullet points:
+    • Access via web browser (Internet)
+    • No software installation required
+    • Multi-device compatible (Desktop & Tablet)
+    • Real-time synchronization
+    
+    Title: "Key Benefits" (LỢI ÍCH NỔI BẬT)
+    Bullet points (use icons):
+    ✅ CLOUD-BASED: Scalable AWS infrastructure
+    ✅ EDOC INTEGRATION: Automated staff data sync
+    ✅ REAL-TIME UPDATES: Instant multi-location sync
+    ✅ ENTERPRISE SECURITY: Bank-grade security
+    ✅ OFFLINE CAPABLE: Uninterrupted operation
+    ✅ INFINITE SCALE: Unlimited growth potential
+
+================================================================================
+COLOR PALETTE
+================================================================================
+
+Primary Colors:
+- AWS Orange: #FF9900
+- AWS Blue: #232F3E
+- Connection Blue: #0066CC
+- Success Green: #228B22
+
+Background Colors:
+- Main Background: #FFFFFF
+- User Boxes: #F8F9FA
+- AWS Container: Gradient (#FF9900 → #232F3E)
+- Services Box: #FFFFFF
+- External Systems: #FFF9E6
+- EDOC Box: #FFE6CC
+
+Accent Colors:
+- Task Services: #F0F4FF
+- Shift Services: #FFF4F0
+- Analytics Services: #F0FFF4
+- Gamification Services: #FFF8F0
+
+================================================================================
+TEXT SPECIFICATIONS
+================================================================================
+
+SLIDE TITLE (Top)
+- Font: Bold, 24pt
+- Color: #1A1A1A
+- Alignment: Center
+- Line spacing: 1.2
+
+SUBTITLE
+- Font: Regular, 18pt
+- Color: #666666
+- Alignment: Center
+
+SECTION HEADINGS
+- Font: Bold, 16pt
+- Color: #333333
+- Uppercase if using English
+
+SERVICE NAMES
+- Font: Semi-bold, 12pt
+- Color: #1A1A1A
+
+SERVICE DETAILS
+- Font: Regular, 10pt
+- Color: #666666
+
+VIETNAMESE TEXT
+- Font: Regular, 11pt (adjust for readability)
+
+================================================================================
+ICON LIBRARY
+================================================================================
+
+Use these icon names/styles (find on Figma Community or use icons):
+
+USER LAYER:
+- desktop-computer (Desktop/PC)
+- tablet (iPad/Tablet)
+- globe (Internet)
+- cloud (Cloud services)
+
+SERVICES:
+- clipboard-list (Tasks)
+- calendar-clock (Shifts)
+- chart-line (Analytics)
+- trophy (Gamification/Leaderboard)
+
+EXTERNAL SYSTEMS:
+- database (EDOC data)
+- arrow-right (Data flow)
+- plug (API connection)
+
+================================================================================
+LAYOUT DIMENSIONS (1920x1080px)
+================================================================================
+
+Title Area:
+- Top margin: 40px
+- Height: 80px
+
+User Interaction Layer:
+- Top: 130px
+- Height: 200px
+- Left box: x=200px, width=280px
+- Right box: x=1240px, width=280px
+
+AWS Infrastructure:
+- Top: 380px
+- Height: 400px
+- Width: 1000px
+- Center horizontally
+
+External Systems:
+- Top: 420px
+- Height: 400px
+- Width: 320px
+- Right margin: 200px
+
+Bottom Features:
+- Top: 850px
+- Height: 200px
+- Full width minus margins
+
+================================================================================
+EXPORT SETTINGS
+================================================================================
+
+For PDF Export:
+- Format: PDF
+- Pages: 1 page
+- Quality: High
+- Include: "Print" markups
+
+For PNG (if needed):
+- Format: PNG
+- Resolution: 300 DPI
+- Background: Include
+
+================================================================================
+NOTES
+================================================================================
+
+1. Make sure the diagram is readable at projection size (not too small)
+2. Use consistent spacing throughout (8px grid system)
+3. Ensure sufficient contrast for accessibility
+4. Keep text sizes large enough for presentation viewing
+5. Test on a projector to ensure readability
+6. Group related elements together
+7. Use shadows sparingly for depth
+8. Maintain visual hierarchy (title → main content → details)
+
+================================================================================
+
+
