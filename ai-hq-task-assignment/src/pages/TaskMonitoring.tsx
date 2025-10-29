@@ -503,21 +503,66 @@ export default function TaskMonitoring() {
                           </div>
 
                           {/* Tasks */}
-                          {staffTasks.map((task) => {
+                          {staffTasks.map((task, idx) => {
                             const taskStartHour = parseInt(task.startTime.split(':')[0]);
                             const taskStartMinute = parseInt(task.startTime.split(':')[1] || '0');
                             const taskEndHour = parseInt(task.endTime.split(':')[0]);
                             const taskEndMinute = parseInt(task.endTime.split(':')[1] || '0');
 
-                            // Calculate position based on time range
-                            const taskStartTotal = taskStartHour + taskStartMinute / 60;
-                            const taskEndTotal = taskEndHour + taskEndMinute / 60;
-                            const left = (taskStartTotal - startHour) * hourWidth + 4; // 4px padding
-                            const width = (taskEndTotal - taskStartTotal) * hourWidth - 8; // 8px total padding
+                            // Calculate position based on time range (in minutes for precision)
+                            const taskStartMinutes = taskStartHour * 60 + taskStartMinute;
+                            const taskEndMinutes = taskEndHour * 60 + taskEndMinute;
+                            const startHourMinutes = startHour * 60;
+                            const endHourMinutes = endHour * 60;
+
+                            // Clamp task to visible range
+                            const visibleStartMinutes = Math.max(taskStartMinutes, startHourMinutes);
+                            const visibleEndMinutes = Math.min(taskEndMinutes, endHourMinutes);
+
+                            // Convert to hours for positioning
+                            const taskStartTotal = (visibleStartMinutes - startHourMinutes) / 60;
+                            const taskDuration = (visibleEndMinutes - visibleStartMinutes) / 60;
+
+                            const left = taskStartTotal * hourWidth + 4; // 4px padding
+                            const width = taskDuration * hourWidth - 8; // 8px total padding
 
                             // Don't render if width is too small or outside visible range
                             if (width < 20 || taskStartHour > endHour || taskEndHour < startHour) {
                               return null;
+                            }
+
+                            // Calculate task time in minutes for overlap detection
+                            const taskStart = taskStartHour * 60 + taskStartMinute;
+                            const taskEnd = taskEndHour * 60 + taskEndMinute;
+
+                            // Find all tasks that overlap with current task
+                            const overlappingTasks = staffTasks.filter((t, i) => {
+                              if (i === idx) return false; // Don't compare with itself
+                              const tStart = parseInt(t.startTime.split(':')[0]) * 60 + parseInt(t.startTime.split(':')[1] || '0');
+                              const tEnd = parseInt(t.endTime.split(':')[0]) * 60 + parseInt(t.endTime.split(':')[1] || '0');
+                              return (taskStart < tEnd && taskEnd > tStart);
+                            });
+
+                            // Vertical stacking logic
+                            const containerHeight = 90; // Available height in the row
+                            const stackGap = 3; // Gap between stacked tasks
+                            let taskHeight = containerHeight;
+                            let taskTop = 5; // Default top padding
+                            let stackPosition = 0; // 0 for first task, 1 for second task
+
+                            if (overlappingTasks.length > 0) {
+                              // Split height between overlapping tasks (max 2)
+                              const totalTasks = 2; // Max 2 parallel tasks
+                              taskHeight = (containerHeight - stackGap) / totalTasks;
+
+                              // Determine stack position (0 = top, 1 = bottom)
+                              const earlierOverlaps = overlappingTasks.filter(t => {
+                                const tIdx = staffTasks.findIndex(st => st.id === t.id);
+                                return tIdx < idx;
+                              });
+
+                              stackPosition = earlierOverlaps.length > 0 ? 1 : 0;
+                              taskTop = 5 + (stackPosition * (taskHeight + stackGap));
                             }
 
                             return (
@@ -527,8 +572,8 @@ export default function TaskMonitoring() {
                                 style={{
                                   left: `${Math.max(0, left)}px`,
                                   width: `${width}px`,
-                                  top: '5px',
-                                  height: '90px',
+                                  top: `${taskTop}px`,
+                                  height: `${taskHeight}px`,
                                   zIndex: 10,
                                 }}
                               >

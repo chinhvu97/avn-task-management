@@ -10,7 +10,8 @@
       "Bash(node -e \"\nconst { wsTemplates } = require(''../shared-data/src/templates/wsTemplates.ts'');\nconsole.log(''Total WS templates:'', wsTemplates.length);\nconsole.log(''\\nTemplates with event field:'');\nwsTemplates.forEach(t => {\n  if (t.event) console.log(''  -'', t.code, '':'', t.title, ''-> event:'', t.event);\n});\nconsole.log(''\\nTemplates WITHOUT event field:'');\nwsTemplates.forEach(t => {\n  if (!t.event) console.log(''  -'', t.code, '':'', t.title, ''-> NO EVENT FIELD'');\n});\n\")",
       "mcp__serena__find_file",
       "mcp__serena__search_for_pattern",
-      "mcp__serena__activate_project"
+      "mcp__serena__activate_project",
+      "Bash(npm run dev:*)"
     ],
     "deny": [],
     "ask": []
