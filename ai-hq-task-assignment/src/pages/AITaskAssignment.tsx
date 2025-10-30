@@ -420,19 +420,22 @@ export default function AITaskAssignment() {
           </div>
         </div>
 
-        {/* Confirmation Summary */}
+        {/* Confirmation Header */}
         <div className="bg-white border border-gray-200 rounded-lg p-8 mb-6">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Check className="w-8 h-8 text-green-600" />
-              </div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">Review Assignment</h2>
-              <p className="text-gray-500">Please review the details before confirming</p>
+          <div className="text-center">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Check className="w-8 h-8 text-green-600" />
             </div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">Review Assignment</h2>
+            <p className="text-gray-500">Please review the details before confirming</p>
+          </div>
+        </div>
 
-            {/* Summary Cards */}
-            <div className="grid grid-cols-2 gap-4 mb-6">
+        {/* Summary Cards */}
+        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+          <div className="max-w-3xl mx-auto">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">Assignment Details</h3>
+            <div className="grid grid-cols-2 gap-6">
               <div className="bg-slate-100 p-6 rounded-lg">
                 <div className="text-sm text-gray-500 mb-2">Assignment Date</div>
                 <div className="text-lg font-semibold text-gray-800">{selectedDate}</div>
@@ -450,10 +453,14 @@ export default function AITaskAssignment() {
                 <div className="text-lg font-semibold text-gray-800">{totalAssignedTasks} Tasks</div>
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Metrics Summary */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
-              <div className="text-sm font-medium text-blue-900 mb-4">Predicted Metrics</div>
+        {/* Metrics Summary */}
+        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+          <div className="max-w-3xl mx-auto">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">Predicted Metrics</h3>
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
               <div className="grid grid-cols-4 gap-4">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-blue-900 mb-1">{selectedScenarioData?.metrics.workload}%</div>
@@ -473,9 +480,14 @@ export default function AITaskAssignment() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Staff List */}
-            <div className="bg-slate-100 p-6 rounded-lg mb-6">
+        {/* Staff List */}
+        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+          <div className="max-w-3xl mx-auto">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">Staff Assignment</h3>
+            <div className="bg-slate-100 p-6 rounded-lg">
               <div className="text-sm font-medium text-gray-700 mb-3">{storeStaff.length} Staff Members Assigned</div>
               <div className="flex flex-wrap gap-2">
                 {storeStaff.map((staff) => (
@@ -485,8 +497,12 @@ export default function AITaskAssignment() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Action Buttons */}
+        {/* Action Buttons */}
+        <div className="bg-white border border-gray-200 rounded-lg p-6">
+          <div className="max-w-3xl mx-auto">
             <div className="flex justify-between">
               <button
                 onClick={() => setCurrentStep(2)}
