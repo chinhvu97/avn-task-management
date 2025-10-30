@@ -7,6 +7,8 @@ import type { TaskTemplate } from 'shared-data';
 export default function DWSTaskTemplates() {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20;
 
   const categories = [
     { id: 'all', name: 'All Categories', count: 110 },
@@ -24,6 +26,18 @@ export default function DWSTaskTemplates() {
   const filteredTemplates = selectedCategory === 'all'
     ? dwsTemplates
     : dwsTemplates.filter(t => t.category?.toLowerCase().includes(selectedCategory));
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredTemplates.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedTemplates = filteredTemplates.slice(startIndex, endIndex);
+
+  // Reset to page 1 when category changes
+  const handleCategoryChange = (categoryId: string) => {
+    setSelectedCategory(categoryId);
+    setCurrentPage(1);
+  };
 
   const getPriorityColor = (priority?: string) => {
     const colors: { [key: string]: string } = {
@@ -120,7 +134,7 @@ export default function DWSTaskTemplates() {
             {categories.map((category) => (
               <button
                 key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
+                onClick={() => handleCategoryChange(category.id)}
                 className={`w-full text-left px-3 py-2 rounded-md flex items-center justify-between ${
                   selectedCategory === category.id
                     ? 'bg-pink-50 text-pink-600 font-medium'
@@ -177,7 +191,7 @@ export default function DWSTaskTemplates() {
 
           {/* Template Cards */}
           <div className="space-y-3">
-            {filteredTemplates.map((template) => (
+            {paginatedTemplates.map((template) => (
               <div key={template.id} className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-start gap-4 flex-1">
@@ -263,6 +277,88 @@ export default function DWSTaskTemplates() {
               </div>
             ))}
           </div>
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="mt-6 bg-white border border-gray-200 rounded-lg p-4">
+              <div className="flex items-center justify-between">
+                {/* Page Info */}
+                <div className="text-sm text-gray-600">
+                  Showing <span className="font-medium text-gray-800">{startIndex + 1}</span> to{' '}
+                  <span className="font-medium text-gray-800">{Math.min(endIndex, filteredTemplates.length)}</span> of{' '}
+                  <span className="font-medium text-gray-800">{filteredTemplates.length}</span> templates
+                </div>
+
+                {/* Pagination Buttons */}
+                <div className="flex items-center gap-2">
+                  {/* Previous Button */}
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                    disabled={currentPage === 1}
+                    className={`px-3 py-2 rounded-md text-sm font-medium ${
+                      currentPage === 1
+                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                        : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    Previous
+                  </button>
+
+                  {/* Page Numbers */}
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                      // Show first page, last page, current page, and pages around current
+                      const showPage =
+                        page === 1 ||
+                        page === totalPages ||
+                        (page >= currentPage - 1 && page <= currentPage + 1);
+
+                      const showEllipsis =
+                        (page === 2 && currentPage > 3) ||
+                        (page === totalPages - 1 && currentPage < totalPages - 2);
+
+                      if (showEllipsis) {
+                        return (
+                          <span key={page} className="px-2 text-gray-400">
+                            ...
+                          </span>
+                        );
+                      }
+
+                      if (!showPage) return null;
+
+                      return (
+                        <button
+                          key={page}
+                          onClick={() => setCurrentPage(page)}
+                          className={`w-10 h-10 rounded-md text-sm font-medium ${
+                            currentPage === page
+                              ? 'bg-pink-600 text-white'
+                              : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50'
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Next Button */}
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                    disabled={currentPage === totalPages}
+                    className={`px-3 py-2 rounded-md text-sm font-medium ${
+                      currentPage === totalPages
+                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                        : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
