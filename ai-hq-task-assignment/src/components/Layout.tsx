@@ -1,4 +1,4 @@
-import { ReactNode, useState, useEffect, useRef } from 'react';
+import React, { ReactNode, useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Calendar,
@@ -136,7 +136,10 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen bg-slate-50 flex">
       {/* Sidebar */}
-      <div className={`bg-white border-r border-gray-200 flex-shrink-0 transition-all duration-300 ${sidebarCollapsed ? 'w-16' : 'w-64'}`}>
+      <div
+        className={`bg-white border-r border-gray-200 flex-shrink-0 transition-all duration-300 ${sidebarCollapsed ? 'w-16' : 'w-64'} flex flex-col overflow-hidden relative`}
+        style={{ position: 'fixed', top: 0, left: 0, height: '100vh' }}
+      >
         <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200">
           {!sidebarCollapsed && (
             <div className="flex items-center gap-3">
@@ -156,7 +159,7 @@ export default function Layout({ children }: LayoutProps) {
           )}
         </div>
 
-        <nav className="p-3">
+        <nav className="flex-1 overflow-y-auto p-3">
           {navigation.map((item) => (
             <div key={item.name}>
               {item.children ? (
@@ -219,7 +222,7 @@ export default function Layout({ children }: LayoutProps) {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col" style={{ marginLeft: sidebarCollapsed ? '4rem' : '16rem' }}>
         {/* Header */}
         <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6">
           {/* Store Selector (for multi-store roles) */}
