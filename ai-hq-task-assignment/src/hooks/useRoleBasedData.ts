@@ -20,9 +20,20 @@ import { getStaffByBuilding } from 'shared-data';
 export function useRoleBasedData() {
   const { profile } = useRole();
 
-  // Get all staff from user's accessible stores
+  // Determine which stores to show data for
+  const activeStores = useMemo(() => {
+    // If a specific store is selected, filter to only that store
+    if (profile.currentStoreId) {
+      const selectedStore = profile.stores.find(s => s.id === profile.currentStoreId);
+      return selectedStore ? [selectedStore] : profile.stores;
+    }
+    // Otherwise, show all accessible stores
+    return profile.stores;
+  }, [profile.stores, profile.currentStoreId]);
+
+  // Get all staff from active stores (filtered by selection)
   const visibleStaff = useMemo(() => {
-    return profile.stores.flatMap(store => {
+    return activeStores.flatMap(store => {
       const storeStaff = getStaffByBuilding(store.name);
       // Add store info to each staff member for context
       return storeStaff.map(s => ({
@@ -31,16 +42,16 @@ export function useRoleBasedData() {
         storeName: store.name,
       }));
     });
-  }, [profile]);
+  }, [activeStores]);
 
   // Get staff IDs for task filtering
   const visibleStaffIds = useMemo(() => {
     return visibleStaff.map(s => s.id);
   }, [visibleStaff]);
 
-  // Calculate aggregate stats across user's stores
+  // Calculate aggregate stats across active stores
   const stats = useMemo(() => {
-    const totalStores = profile.stores.length;
+    const totalStores = activeStores.length;
     const totalStaff = visibleStaff.length;
     const totalTasks = 110 * totalStores; // 110 DWS tasks per store
     const avgTasksPerStaff = totalStaff > 0 ? Math.round(totalTasks / totalStaff) : 0;
@@ -51,18 +62,21 @@ export function useRoleBasedData() {
       totalTasks,
       avgTasksPerStaff,
       // Per-store breakdown
-      storesBreakdown: profile.stores.map(store => ({
+      storesBreakdown: activeStores.map(store => ({
         storeId: store.id,
         storeName: store.name,
         staffCount: getStaffByBuilding(store.name).length,
         taskCount: 110, // 110 tasks per store
       })),
     };
-  }, [profile, visibleStaff]);
+  }, [activeStores, visibleStaff]);
 
   return {
-    // User's accessible stores
+    // All accessible stores (for dropdowns)
     visibleStores: profile.stores,
+
+    // Currently active stores (filtered by selection)
+    activeStores,
 
     // Filtered staff list (with store context added)
     visibleStaff,
