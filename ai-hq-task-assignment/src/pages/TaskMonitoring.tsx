@@ -3,10 +3,14 @@ import { Search, Filter, Download, RefreshCw, ChevronRight, Calendar, MoreVertic
 import { mockStaff } from '../data/mockData';
 import { useRole, getCurrentStore } from '../contexts/RoleContext';
 import { getStaffByBuilding, mockTasks } from 'shared-data';
+import { RoleIndicator } from '../components/RoleIndicator';
+import { StoreSelector } from '../components/StoreSelector';
+import { useRoleBasedData } from '../hooks/useRoleBasedData';
 
 export default function TaskMonitoring() {
   const { profile } = useRole();
   const currentStore = getCurrentStore(profile);
+  const { isMultiStore } = useRoleBasedData();
 
   const [viewMode, setViewMode] = useState<'timeline' | 'kanban' | 'list'>('timeline');
   // Use today's date
@@ -140,6 +144,16 @@ export default function TaskMonitoring() {
 
   return (
     <div className="p-6">
+      {/* Role Indicator */}
+      <RoleIndicator />
+
+      {/* Store Selector - Only for multi-store roles */}
+      {isMultiStore && (
+        <div className="mb-6">
+          <StoreSelector />
+        </div>
+      )}
+
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm mb-6">
         <span className="text-gray-500">Task Management</span>

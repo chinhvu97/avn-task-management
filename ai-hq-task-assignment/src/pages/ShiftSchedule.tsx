@@ -2,11 +2,15 @@ import { useState } from 'react';
 import { ChevronLeft, ChevronRight, Calendar, Download, Plus, Clock } from 'lucide-react';
 import { getStaffByBuilding } from 'shared-data';
 import { useRole, getCurrentStore } from '../contexts/RoleContext';
+import { RoleIndicator } from '../components/RoleIndicator';
+import { StoreSelector } from '../components/StoreSelector';
+import { useRoleBasedData } from '../hooks/useRoleBasedData';
 
 export default function ShiftSchedule() {
   const [selectedWeek, setSelectedWeek] = useState('Oct 28 - Nov 3, 2025');
   const { profile } = useRole();
   const currentStore = getCurrentStore(profile);
+  const { isMultiStore, stats: roleStats } = useRoleBasedData();
 
   const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const dates = ['Oct 28', 'Oct 29', 'Oct 30', 'Oct 31', 'Nov 1', 'Nov 2', 'Nov 3'];
@@ -126,6 +130,40 @@ export default function ShiftSchedule() {
 
   return (
     <div className="p-6">
+      {/* Role Indicator */}
+      <RoleIndicator />
+
+      {/* Store Selector - Only for multi-store roles */}
+      {isMultiStore && (
+        <div className="mb-6">
+          <StoreSelector />
+        </div>
+      )}
+
+      {/* Multi-Store Summary - Only for multi-store roles */}
+      {isMultiStore && (
+        <div className="bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-lg p-4 mb-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="font-semibold text-purple-900 mb-1">Multi-Store Overview</h3>
+              <p className="text-sm text-purple-700">
+                Managing shifts across {roleStats.totalStores} stores • {roleStats.totalStaff} total staff
+              </p>
+            </div>
+            <div className="flex gap-4">
+              {roleStats.storesBreakdown.map((store) => (
+                <div key={store.storeId} className="bg-white rounded-lg px-4 py-2 border border-purple-200">
+                  <div className="text-xs text-gray-600 mb-1 truncate max-w-[120px]">
+                    {store.storeName.split(' ').slice(2).join(' ')}
+                  </div>
+                  <div className="text-lg font-bold text-purple-700">{store.staffCount} staff</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm mb-6">
         <span className="text-gray-500">Shift Management</span>
@@ -137,7 +175,11 @@ export default function ShiftSchedule() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-800 mb-2">Shift Schedule</h1>
-          <p className="text-gray-500">Weekly shift planning and staff allocation</p>
+          <p className="text-gray-500">
+            {isMultiStore
+              ? `Weekly shift planning across ${roleStats.totalStores} stores`
+              : 'Weekly shift planning and staff allocation'}
+          </p>
         </div>
         <div className="flex gap-3">
           <button className="px-4 py-2 border border-gray-200 rounded-md hover:bg-gray-50 flex items-center gap-2">

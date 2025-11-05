@@ -1,12 +1,16 @@
 import { useState } from 'react';
-import { Search, Filter, Plus, MoreVertical, Mail, Phone, MapPin, ChevronRight, Download, Edit, Trash2 } from 'lucide-react';
+import { Search, Filter, Plus, MoreVertical, Mail, Phone, MapPin, ChevronRight, Download, Edit, Trash2, ArrowRightLeft } from 'lucide-react';
 import { staff as staffData, getStaffByBuilding } from 'shared-data';
 import { useRole, getCurrentStore } from '../contexts/RoleContext';
+import { RoleIndicator } from '../components/RoleIndicator';
+import { StoreSelector } from '../components/StoreSelector';
+import { useRoleBasedData } from '../hooks/useRoleBasedData';
 
 export default function StaffManagement() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const { profile } = useRole();
   const currentStore = getCurrentStore(profile);
+  const { isMultiStore } = useRoleBasedData();
 
   // Filter staff based on user role and store
   const filteredStaffData = currentStore
@@ -44,6 +48,16 @@ export default function StaffManagement() {
 
   return (
     <div className="p-6">
+      {/* Role Indicator */}
+      <RoleIndicator />
+
+      {/* Store Selector - Only for multi-store roles */}
+      {isMultiStore && (
+        <div className="mb-6">
+          <StoreSelector />
+        </div>
+      )}
+
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm mb-6">
         <span className="text-gray-500">Management</span>
@@ -55,9 +69,20 @@ export default function StaffManagement() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-800 mb-2">Staff Management</h1>
-          <p className="text-gray-500">Manage employees across all stores</p>
+          <p className="text-gray-500">
+            {isMultiStore
+              ? `Manage employees across ${profile.stores.length} stores`
+              : 'Manage employees at your store'}
+          </p>
         </div>
         <div className="flex gap-3">
+          {/* Cross-Store Transfer Button - Only for multi-store roles */}
+          {isMultiStore && (
+            <button className="px-4 py-2 border border-purple-300 bg-purple-50 text-purple-700 rounded-md hover:bg-purple-100 flex items-center gap-2">
+              <ArrowRightLeft className="w-4 h-4" />
+              Transfer Staff
+            </button>
+          )}
           <button className="px-4 py-2 border border-gray-200 rounded-md hover:bg-gray-50 flex items-center gap-2">
             <Download className="w-4 h-4" />
             Export

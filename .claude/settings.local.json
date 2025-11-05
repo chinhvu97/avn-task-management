@@ -29,7 +29,8 @@
       "mcp__serena__find_symbol",
       "Bash(cat:*)",
       "mcp__serena__get_current_config",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(ssh:*)"
     ],
     "deny": [],
     "ask": []
