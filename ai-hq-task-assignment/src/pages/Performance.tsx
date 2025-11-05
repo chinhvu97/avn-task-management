@@ -22,6 +22,10 @@ import {
 
 // Import data from shared-data
 import { mockStoreLeaderboard } from 'shared-data';
+import { useRole } from '../contexts/RoleContext';
+import { RoleIndicator } from '../components/RoleIndicator';
+import { StoreSelector } from '../components/StoreSelector';
+import { useRoleBasedData } from '../hooks/useRoleBasedData';
 
 // Enhanced data with better metrics
 const completionTrendData = [
@@ -99,6 +103,9 @@ const kpiTargets = {
 };
 
 export default function Performance() {
+  const { profile } = useRole();
+  const { isMultiStore, stats: roleStats } = useRoleBasedData();
+
   const COLORS = {
     primary: '#D61F69',
     secondary: '#8B5CF6',
@@ -110,6 +117,16 @@ export default function Performance() {
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
+      {/* Role Indicator */}
+      <RoleIndicator />
+
+      {/* Store Selector - Only for multi-store roles */}
+      {isMultiStore && (
+        <div className="mb-6">
+          <StoreSelector />
+        </div>
+      )}
+
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm mb-6">
         <span className="text-gray-500">Analytics</span>

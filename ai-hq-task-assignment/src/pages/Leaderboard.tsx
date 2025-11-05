@@ -1,9 +1,23 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Trophy, Medal, Award, ChevronRight, Calendar } from 'lucide-react';
 import { mockLeaderboard, mockStoreLeaderboard, calculatePoints } from 'shared-data';
+import { useRole } from '../contexts/RoleContext';
+import { RoleIndicator } from '../components/RoleIndicator';
+import { StoreSelector } from '../components/StoreSelector';
+import { useRoleBasedData } from '../hooks/useRoleBasedData';
 
 export default function Leaderboard() {
-  const [selectedLevel, setSelectedLevel] = useState<'store' | 'regional' | 'global'>('store');
+  const { profile } = useRole();
+  const { isMultiStore } = useRoleBasedData();
+
+  // Default tab based on role
+  const getDefaultLevel = () => {
+    if (profile.role === 'hq') return 'global';
+    if (profile.role === 'am' || profile.role === 'si') return 'regional';
+    return 'store';
+  };
+
+  const [selectedLevel, setSelectedLevel] = useState<'store' | 'regional' | 'global'>(getDefaultLevel());
   const [selectedPeriod, setSelectedPeriod] = useState('month');
 
   // Map staff IDs to store names (using actual store names from shared data)
@@ -67,6 +81,16 @@ export default function Leaderboard() {
 
   return (
     <div className="p-6">
+      {/* Role Indicator */}
+      <RoleIndicator />
+
+      {/* Store Selector - Only for multi-store roles */}
+      {isMultiStore && (
+        <div className="mb-6">
+          <StoreSelector />
+        </div>
+      )}
+
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm mb-6">
         <span className="text-gray-500">Analytics</span>
