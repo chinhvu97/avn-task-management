@@ -1,12 +1,22 @@
 import { TrendingUp, TrendingDown, Users, CheckCircle, Clock, AlertCircle, Calendar, Target, BarChart3, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useMemo } from 'react';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { RoleIndicator } from '../components/RoleIndicator';
+import { StoreSelector } from '../components/StoreSelector';
+import { RoleBasedContent } from '../components/RoleBasedContent';
+import { useRole } from '../contexts/RoleContext';
+import { useRoleBasedData } from '../hooks/useRoleBasedData';
 
 export default function Dashboard() {
-  const stats = [
+  const { profile } = useRole();
+  const { visibleStaff, stats: roleStats, isMultiStore, visibleStores } = useRoleBasedData();
+
+  // Dynamic stats based on role data
+  const stats = useMemo(() => [
     {
       name: 'Active Tasks',
-      value: '847',
+      value: String(roleStats.totalTasks),
       change: '+12.5%',
       trend: 'up',
       icon: CheckCircle,
@@ -14,7 +24,7 @@ export default function Dashboard() {
     },
     {
       name: 'Staff On Duty',
-      value: '156',
+      value: String(roleStats.totalStaff),
       change: '-2.3%',
       trend: 'down',
       icon: Users,
@@ -30,21 +40,28 @@ export default function Dashboard() {
     },
     {
       name: 'Pending Approvals',
-      value: '23',
+      value: String(Math.round(roleStats.totalTasks * 0.05)),
       change: '-8.1%',
       trend: 'down',
       icon: Clock,
       color: 'bg-orange-500',
     },
+  ], [roleStats]);
+
+  // Mock recent tasks - filter based on user's visible stores
+  const allRecentTasks = [
+    { id: 1, title: 'Morning Inventory Check', storeId: 'demo-01', storeName: 'AEON MAXVALU OCEAN PARK HAWAII BUILDING', status: 'Processing', priority: 'High', assignee: 'Sarah Johnson' },
+    { id: 2, title: 'Customer Service Training', storeId: 'demo-03', storeName: 'AEON MAXVALU ECOPARK RỪNG CỌ', status: 'Pending', priority: 'Medium', assignee: 'Mike Chen' },
+    { id: 3, title: 'Product Display Update', storeId: 'demo-04', storeName: 'AEON MAXVALU ECOPARK', status: 'Done', priority: 'Low', assignee: 'Emily Rodriguez' },
+    { id: 4, title: 'Safety Inspection', storeId: 'demo-02', storeName: 'AEON MAXVALU SKY OASIS', status: 'Awaiting Approval', priority: 'High', assignee: 'John Smith' },
+    { id: 5, title: 'Stock Replenishment', storeId: 'demo-03', storeName: 'AEON MAXVALU ECOPARK RỪNG CỌ', status: 'Open', priority: 'Medium', assignee: 'Lisa Wong' },
+    { id: 6, title: 'End of Day Cleaning', storeId: 'demo-01', storeName: 'AEON MAXVALU OCEAN PARK HAWAII BUILDING', status: 'Processing', priority: 'Medium', assignee: 'Tom Chen' },
   ];
 
-  const recentTasks = [
-    { id: 1, title: 'Morning Inventory Check', store: 'Store #01 - Hanoi', status: 'Processing', priority: 'High', assignee: 'Sarah Johnson' },
-    { id: 2, title: 'Customer Service Training', store: 'Store #03 - HCMC', status: 'Pending', priority: 'Medium', assignee: 'Mike Chen' },
-    { id: 3, title: 'Product Display Update', store: 'Store #05 - Da Nang', status: 'Done', priority: 'Low', assignee: 'Emily Rodriguez' },
-    { id: 4, title: 'Safety Inspection', store: 'Store #02 - Hanoi', status: 'Awaiting Approval', priority: 'High', assignee: 'John Smith' },
-    { id: 5, title: 'Stock Replenishment', store: 'Store #04 - HCMC', status: 'Open', priority: 'Medium', assignee: 'Lisa Wong' },
-  ];
+  const recentTasks = useMemo(() => {
+    const visibleStoreIds = visibleStores.map(s => s.id);
+    return allRecentTasks.filter(task => visibleStoreIds.includes(task.storeId));
+  }, [visibleStores]);
 
   const upcomingShifts = [
     { time: '08:00 AM', staff: 'Sarah Johnson', role: 'Floor Manager', store: 'Store #01' },
@@ -53,13 +70,16 @@ export default function Dashboard() {
     { time: '11:00 AM', staff: 'John Smith', role: 'Stock Clerk', store: 'Store #03' },
   ];
 
-  const storePerformance = [
-    { name: 'Store #01 - Hanoi', tasks: 110, completed: 98, rate: 89 },
-    { name: 'Store #02 - Hanoi', tasks: 110, completed: 95, rate: 86 },
-    { name: 'Store #03 - HCMC', tasks: 110, completed: 102, rate: 93 },
-    { name: 'Store #04 - HCMC', tasks: 110, completed: 88, rate: 80 },
-    { name: 'Store #05 - Da Nang', tasks: 110, completed: 91, rate: 83 },
-  ];
+  // Store performance - filter based on user's visible stores
+  const storePerformance = useMemo(() => {
+    return roleStats.storesBreakdown.map((store, idx) => ({
+      id: store.storeId,
+      name: store.storeName,
+      tasks: store.taskCount,
+      completed: Math.round(store.taskCount * (0.8 + Math.random() * 0.15)), // Mock completion data
+      rate: Math.round(80 + Math.random() * 15), // Mock rate 80-95%
+    }));
+  }, [roleStats]);
 
   const getStatusColor = (status: string) => {
     const colors: { [key: string]: string } = {
@@ -83,10 +103,25 @@ export default function Dashboard() {
 
   return (
     <div className="p-6">
+      {/* Role Indicator */}
+      <RoleIndicator />
+
+      {/* Store Selector - Only for multi-store roles */}
+      {isMultiStore && (
+        <div className="mb-6">
+          <StoreSelector />
+        </div>
+      )}
+
       {/* Welcome Section */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">Welcome back, Sarah!</h1>
-        <p className="text-gray-500">Here's what's happening with your stores today.</p>
+        <h1 className="text-2xl font-bold text-gray-800 mb-2">Welcome back, {profile.name}!</h1>
+        <p className="text-gray-500">
+          {profile.role === 'hq' && `Managing ${roleStats.totalStores} stores across the system.`}
+          {profile.role === 'am' && `Overseeing ${roleStats.totalStores} stores in your region.`}
+          {profile.role === 'si' && `Inspecting ${roleStats.totalStores} stores under your supervision.`}
+          {profile.role === 'store-manager' && `Here's what's happening at your store today.`}
+        </p>
       </div>
 
       {/* Stats Grid */}
@@ -122,25 +157,31 @@ export default function Dashboard() {
             </Link>
           </div>
           <div className="divide-y divide-gray-200">
-            {recentTasks.map((task) => (
-              <div key={task.id} className="p-4 hover:bg-gray-50">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="font-medium text-gray-800">{task.title}</div>
-                  <span className={`px-2 py-1 rounded text-xs border ${getStatusColor(task.status)}`}>
-                    {task.status}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <div className="text-gray-500">{task.store}</div>
-                  <div className="flex items-center gap-4">
-                    <span className={`${getPriorityColor(task.priority)} font-medium`}>
-                      {task.priority}
+            {recentTasks.length > 0 ? (
+              recentTasks.map((task) => (
+                <div key={task.id} className="p-4 hover:bg-gray-50">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="font-medium text-gray-800">{task.title}</div>
+                    <span className={`px-2 py-1 rounded text-xs border ${getStatusColor(task.status)}`}>
+                      {task.status}
                     </span>
-                    <span className="text-gray-500">{task.assignee}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <div className="text-gray-500 truncate flex-1">{task.storeName}</div>
+                    <div className="flex items-center gap-4">
+                      <span className={`${getPriorityColor(task.priority)} font-medium`}>
+                        {task.priority}
+                      </span>
+                      <span className="text-gray-500">{task.assignee}</span>
+                    </div>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="p-8 text-center text-gray-500">
+                No recent tasks found for your stores.
               </div>
-            ))}
+            )}
           </div>
         </div>
 
@@ -199,8 +240,8 @@ export default function Dashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {storePerformance.map((store, idx) => (
-                <tr key={idx} className="hover:bg-gray-50">
+              {storePerformance.map((store) => (
+                <tr key={store.id} className="hover:bg-gray-50">
                   <td className="p-4 font-medium text-gray-800">{store.name}</td>
                   <td className="p-4 text-right text-gray-600">{store.tasks}</td>
                   <td className="p-4 text-right text-gray-600">{store.completed}</td>

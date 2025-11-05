@@ -4,11 +4,15 @@ import { ChevronRight, ChevronLeft, Check, Maximize2, BarChart3, Clock, Smile, T
 import { mockStaff } from '../data/mockData';
 import { useRole, getCurrentStore } from '../contexts/RoleContext';
 import { getStaffByBuilding, dwsTemplates, wsTemplates } from 'shared-data';
+import { RoleIndicator } from '../components/RoleIndicator';
+import { StoreSelector } from '../components/StoreSelector';
+import { useRoleBasedData } from '../hooks/useRoleBasedData';
 
 export default function AITaskAssignment() {
   const navigate = useNavigate();
   const { profile } = useRole();
   const currentStore = getCurrentStore(profile);
+  const { isMultiStore } = useRoleBasedData();
 
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedDate, setSelectedDate] = useState('Monday, October 27, 2025');
@@ -233,6 +237,16 @@ export default function AITaskAssignment() {
   if (currentStep === 1) {
     return (
       <div className="p-6">
+        {/* Role Indicator */}
+        <RoleIndicator />
+
+        {/* Store Selector - Only for multi-store roles */}
+        {isMultiStore && (
+          <div className="mb-6">
+            <StoreSelector />
+          </div>
+        )}
+
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm mb-6">
           <span className="text-gray-500">Task Management</span>
@@ -243,7 +257,9 @@ export default function AITaskAssignment() {
         {/* Page Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-800 mb-2">AI Task Assignment</h1>
-          <p className="text-gray-500">Intelligent task distribution with automated scenario generation</p>
+          <p className="text-gray-500">
+            Intelligent task distribution for {currentStore?.name || 'your store'}
+          </p>
         </div>
 
         {/* Progress Steps */}
@@ -368,6 +384,16 @@ export default function AITaskAssignment() {
   if (currentStep === 3) {
     return (
       <div className="p-6">
+        {/* Role Indicator */}
+        <RoleIndicator />
+
+        {/* Store Selector - Only for multi-store roles */}
+        {isMultiStore && (
+          <div className="mb-6">
+            <StoreSelector />
+          </div>
+        )}
+
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm mb-6">
           <span className="text-gray-500">Task Management</span>
@@ -378,7 +404,9 @@ export default function AITaskAssignment() {
         {/* Page Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-800 mb-2">AI Task Assignment</h1>
-          <p className="text-gray-500">Intelligent task distribution with automated scenario generation</p>
+          <p className="text-gray-500">
+            Intelligent task distribution for {currentStore?.name || 'your store'}
+          </p>
         </div>
 
         {/* Progress Steps */}
@@ -528,6 +556,16 @@ export default function AITaskAssignment() {
   // STEP 2: Scenario Generation (existing UI)
   return (
     <div className="p-6">
+      {/* Role Indicator */}
+      <RoleIndicator />
+
+      {/* Store Selector - Only for multi-store roles */}
+      {isMultiStore && (
+        <div className="mb-6">
+          <StoreSelector />
+        </div>
+      )}
+
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm mb-6">
         <span className="text-gray-500">Task Management</span>
@@ -538,7 +576,9 @@ export default function AITaskAssignment() {
       {/* Page Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-800 mb-2">AI Task Assignment</h1>
-        <p className="text-gray-500">Intelligent task distribution with automated scenario generation</p>
+        <p className="text-gray-500">
+          Intelligent task distribution for {currentStore?.name || 'your store'}
+        </p>
       </div>
 
       {/* Data Source Indicator */}
