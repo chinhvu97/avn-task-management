@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Search, Filter, Download, RefreshCw, ChevronRight, Calendar, MoreVertical } from 'lucide-react';
+import { DndContext, DragOverlay, closestCenter, PointerSensor, useSensor, useSensors, DragStartEvent, DragEndEvent } from '@dnd-kit/core';
 import { mockStaff } from '../data/mockData';
 import { useRole, getCurrentStore } from '../contexts/RoleContext';
-import { getStaffByBuilding, mockTasks } from 'shared-data';
+import { getStaffByBuilding, mockTasks, Task as SharedTask } from 'shared-data';
 import { RoleIndicator } from '../components/RoleIndicator';
 import { StoreSelector } from '../components/StoreSelector';
 import { useRoleBasedData } from '../hooks/useRoleBasedData';
+import { DraggableTaskCard } from '../components/DraggableTaskCard';
+import { DroppableStaffRow } from '../components/DroppableStaffRow';
+import { ToastContainer, ToastType } from '../components/Toast';
 
 export default function TaskMonitoring() {
   const { profile } = useRole();
@@ -17,6 +21,12 @@ export default function TaskMonitoring() {
   const today = new Date().toISOString().split('T')[0];
   const [selectedDate, setSelectedDate] = useState(today);
   const [timeRange, setTimeRange] = useState<'8h' | '24h'>('8h');
+
+  // Toast state
+  const [toasts, setToasts] = useState<Array<{ id: string; type: ToastType; message: string }>>([]);
+
+  // Drag & drop state
+  const [activeTaskId, setActiveTaskId] = useState<string | null>(null);
 
   // Filter staff to only show staff from the current store
   const storeStaff = currentStore
@@ -35,32 +45,73 @@ export default function TaskMonitoring() {
     task.date === selectedDate && storeStaffIds.includes(task.staffId)
   );
 
-  // Enrich tasks with staff info and additional fields for display
-  const tasks = filteredTasks.map(task => {
-    const staff = storeStaff.find(s => s.id === task.staffId);
-    return {
-      id: task.id,
-      title: task.title,
-      store: currentStore?.name || 'Store #01',
-      assignee: staff?.name || 'Unassigned',
-      avatar: staff?.avatar || '',
-      status: task.status,
-      type: task.type,
-      priority: 'Medium' as const, // Default priority since staff app doesn't have this field
-      startTime: task.startTime,
-      endTime: task.endTime,
-      estimated: task.estimatedMinutes,
-      actual: task.actualMinutes || 0,
-      progress: task.status === 'Done' ? 100 : task.status === 'Processing' ? 50 : 0,
-      category: task.type === 'DWS' ? 'Daily Operations' : 'Event Task',
-      // WS specific fields
-      samplePhotos: task.sampleImages,
-      completionPhotos: task.completionPhotos,
-      aiVerificationStatus: task.aiVerificationStatus,
-      requiresHQApproval: task.requiresHQApproval,
-      staffId: task.staffId, // Add staffId for timeline rendering
-    };
+  // Helper function to enrich tasks with staff info
+  const enrichTasks = (tasksToEnrich: typeof mockTasks) => {
+    return tasksToEnrich.map(task => {
+      const staff = storeStaff.find(s => s.id === task.staffId);
+      return {
+        id: task.id,
+        title: task.title,
+        store: currentStore?.name || 'Store #01',
+        assignee: staff?.name || 'Unassigned',
+        avatar: staff?.avatar || '',
+        status: task.status,
+        type: task.type,
+        priority: 'Medium' as const,
+        startTime: task.startTime,
+        endTime: task.endTime,
+        estimated: task.estimatedMinutes,
+        actual: task.actualMinutes || 0,
+        progress: task.status === 'Done' ? 100 : task.status === 'Processing' ? 50 : 0,
+        category: task.type === 'DWS' ? 'Daily Operations' : 'Event Task',
+        samplePhotos: task.sampleImages,
+        completionPhotos: task.completionPhotos,
+        aiVerificationStatus: task.aiVerificationStatus,
+        requiresHQApproval: task.requiresHQApproval,
+        staffId: task.staffId,
+      };
+    });
+  };
+
+  // Task state with localStorage persistence
+  const [tasks, setTasks] = useState(() => {
+    const storageKey = `tasks_${selectedDate}_${currentStore?.id || 'all'}`;
+    const saved = localStorage.getItem(storageKey);
+
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error('Failed to parse saved tasks:', e);
+        return enrichTasks(filteredTasks);
+      }
+    }
+
+    return enrichTasks(filteredTasks);
   });
+
+  // Save tasks to localStorage whenever they change
+  useEffect(() => {
+    const storageKey = `tasks_${selectedDate}_${currentStore?.id || 'all'}`;
+    localStorage.setItem(storageKey, JSON.stringify(tasks));
+  }, [tasks, selectedDate, currentStore]);
+
+  // Reload tasks when date or store changes
+  useEffect(() => {
+    const storageKey = `tasks_${selectedDate}_${currentStore?.id || 'all'}`;
+    const saved = localStorage.getItem(storageKey);
+
+    if (saved) {
+      try {
+        setTasks(JSON.parse(saved));
+      } catch (e) {
+        console.error('Failed to parse saved tasks:', e);
+        setTasks(enrichTasks(filteredTasks));
+      }
+    } else {
+      setTasks(enrichTasks(filteredTasks));
+    }
+  }, [selectedDate, currentStore?.id]);
 
   const getStatusColor = (status: string) => {
     const colors: { [key: string]: string } = {
@@ -102,7 +153,7 @@ export default function TaskMonitoring() {
   // Timeline calculations
   const startHour = timeRange === '8h' ? 8 : 0;
   const endHour = timeRange === '8h' ? 16 : 23;
-  const hourWidth = timeRange === '8h' ? 120 : 60;
+  const hourWidth = timeRange === '8h' ? 150 : 60; // Increased from 120 to 150 for easier drag & drop
 
   // Calculate "now" indicator position (demo: 9:30 AM)
   const nowHour = 9;
@@ -132,6 +183,226 @@ export default function TaskMonitoring() {
   };
 
   const stats = getTotalStats();
+
+  // Toast management
+  const showToast = (type: ToastType, message: string) => {
+    const id = Date.now().toString();
+    setToasts(prev => [...prev, { id, type, message }]);
+  };
+
+  const removeToast = (id: string) => {
+    setToasts(prev => prev.filter(t => t.id !== id));
+  };
+
+  // Drag & drop sensors
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5, // 5px movement to activate
+      },
+    })
+  );
+
+  // Helper functions for time conversion
+  const timeToMinutes = (time: string): number => {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
+  };
+
+  const minutesToTime = (minutes: number): string => {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
+  };
+
+  // Find next available time slot for task reassignment
+  const findNextAvailableSlot = (existingTasks: typeof tasks, duration: number): { start: number; end: number } | null => {
+    const slots = existingTasks
+      .map(t => ({ start: timeToMinutes(t.startTime), end: timeToMinutes(t.endTime) }))
+      .sort((a, b) => a.start - b.start);
+
+    const shiftStart = 8 * 60; // 08:00
+    const shiftEnd = 17 * 60; // 17:00
+
+    // Check gap before first task
+    if (slots.length === 0 || slots[0].start - shiftStart >= duration) {
+      return { start: shiftStart, end: shiftStart + duration };
+    }
+
+    // Check gaps between tasks
+    for (let i = 0; i < slots.length - 1; i++) {
+      const gapStart = slots[i].end;
+      const gapEnd = slots[i + 1].start;
+      if (gapEnd - gapStart >= duration) {
+        return { start: gapStart, end: gapStart + duration };
+      }
+    }
+
+    // Check gap after last task
+    const lastEnd = slots[slots.length - 1].end;
+    if (shiftEnd - lastEnd >= duration) {
+      return { start: lastEnd, end: lastEnd + duration };
+    }
+
+    return null; // No slot found
+  };
+
+  // Update task helper
+  const updateTask = (taskId: string, updates: Partial<typeof tasks[0]>) => {
+    setTasks(prevTasks =>
+      prevTasks.map(task =>
+        task.id === taskId ? { ...task, ...updates } : task
+      )
+    );
+  };
+
+  // Reassign task with conflict detection (allows up to 2 parallel tasks)
+  const reassignTask = (taskId: string, targetStaffId: string, newStartTime?: string) => {
+    const task = tasks.find(t => t.id === taskId);
+    if (!task) return;
+
+    const targetStaff = storeStaff.find(s => s.id === targetStaffId);
+    const staffName = targetStaff?.name || 'staff';
+
+    // Calculate task duration
+    const taskStart = newStartTime ? timeToMinutes(newStartTime) : timeToMinutes(task.startTime);
+    const taskEnd = timeToMinutes(task.endTime);
+    const duration = taskEnd - timeToMinutes(task.startTime);
+
+    // If new start time provided, adjust end time
+    const adjustedStartTime = newStartTime || task.startTime;
+    const adjustedEndTime = newStartTime ? minutesToTime(timeToMinutes(newStartTime) + duration) : task.endTime;
+
+    // Get target staff's existing tasks (excluding current task)
+    const targetStaffTasks = tasks.filter(t => t.staffId === targetStaffId && t.id !== taskId);
+
+    // Check how many tasks overlap with the new time slot
+    const overlappingTasks = targetStaffTasks.filter(t => {
+      const tStart = timeToMinutes(t.startTime);
+      const tEnd = timeToMinutes(t.endTime);
+      const newStart = timeToMinutes(adjustedStartTime);
+      const newEnd = timeToMinutes(adjustedEndTime);
+      return (newStart < tEnd && newEnd > tStart);
+    });
+
+    // Allow up to 2 parallel tasks
+    if (overlappingTasks.length >= 2) {
+      // Too many parallel tasks, find next available slot
+      const newSlot = findNextAvailableSlot(targetStaffTasks, duration);
+
+      if (newSlot) {
+        updateTask(taskId, {
+          staffId: targetStaffId,
+          assignee: staffName,
+          avatar: targetStaff?.avatar || '',
+          startTime: minutesToTime(newSlot.start),
+          endTime: minutesToTime(newSlot.end),
+        });
+        showToast('warning', `Task moved to ${staffName} with adjusted time: ${minutesToTime(newSlot.start)} - ${minutesToTime(newSlot.end)} (max 2 parallel tasks)`);
+      } else {
+        // Stack as 3rd task (not ideal but allowed)
+        updateTask(taskId, {
+          staffId: targetStaffId,
+          assignee: staffName,
+          avatar: targetStaff?.avatar || '',
+          startTime: adjustedStartTime,
+          endTime: adjustedEndTime,
+        });
+        showToast('warning', `Task stacked on ${staffName} at ${adjustedStartTime} - ${adjustedEndTime} (3+ parallel tasks)`);
+      }
+    } else if (overlappingTasks.length === 1) {
+      // 1 overlap - will be stacked as 2 parallel tasks (50% height each)
+      updateTask(taskId, {
+        staffId: targetStaffId,
+        assignee: staffName,
+        avatar: targetStaff?.avatar || '',
+        startTime: adjustedStartTime,
+        endTime: adjustedEndTime,
+      });
+
+      if (task.staffId === targetStaffId && newStartTime) {
+        showToast('success', `Task time adjusted to ${adjustedStartTime} - ${adjustedEndTime}`);
+      } else {
+        showToast('warning', `Task moved to ${staffName} at ${adjustedStartTime} - ${adjustedEndTime} (2 parallel tasks)`);
+      }
+    } else {
+      // No overlap - direct assignment
+      updateTask(taskId, {
+        staffId: targetStaffId,
+        assignee: staffName,
+        avatar: targetStaff?.avatar || '',
+        startTime: adjustedStartTime,
+        endTime: adjustedEndTime,
+      });
+
+      if (task.staffId === targetStaffId && newStartTime) {
+        showToast('success', `Task time adjusted to ${adjustedStartTime} - ${adjustedEndTime}`);
+      } else {
+        showToast('success', `Task reassigned to ${staffName}`);
+      }
+    }
+  };
+
+  // Drag & drop event handlers
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveTaskId(event.active.id as string);
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over, delta } = event;
+
+    if (!over) {
+      setActiveTaskId(null);
+      return;
+    }
+
+    const taskId = active.id as string;
+    const task = tasks.find(t => t.id === taskId);
+
+    if (!task) {
+      setActiveTaskId(null);
+      return;
+    }
+
+    // Check if dropped on a staff row
+    const targetStaffId = over.id as string;
+
+    // Calculate if there was significant horizontal movement (time adjustment)
+    const horizontalMovement = delta.x;
+    const timeAdjustmentMinutes = Math.round(horizontalMovement / hourWidth * 60);
+
+    if (Math.abs(timeAdjustmentMinutes) >= 5) {
+      // Significant horizontal movement - adjust time
+      const currentStart = timeToMinutes(task.startTime);
+      const newStartMinutes = currentStart + timeAdjustmentMinutes;
+
+      // Snap to 15-minute intervals (00, 15, 30, 45)
+      const snappedMinutes = Math.round(newStartMinutes / 15) * 15;
+
+      // Clamp to shift hours (8:00 - 17:00)
+      const clampedStart = Math.max(8 * 60, Math.min(16 * 60, snappedMinutes));
+      const newStartTime = minutesToTime(clampedStart);
+
+      reassignTask(taskId, targetStaffId, newStartTime);
+    } else {
+      // No significant horizontal movement - just reassign to staff
+      reassignTask(taskId, targetStaffId);
+    }
+
+    setActiveTaskId(null);
+  };
+
+  // Reset tasks to original state
+  const resetTasks = () => {
+    const storageKey = `tasks_${selectedDate}_${currentStore?.id || 'all'}`;
+    localStorage.removeItem(storageKey);
+
+    // Reload from mockTasks
+    const freshTasks = enrichTasks(filteredTasks);
+    setTasks(freshTasks);
+
+    showToast('info', 'Tasks reset to original state');
+  };
 
   // Helper functions for task counts
   const getTaskCountByType = (type: string, date: string) => {
@@ -168,13 +439,16 @@ export default function TaskMonitoring() {
           <p className="text-gray-500">Real-time task tracking across all stores and staff</p>
         </div>
         <div className="flex gap-3">
+          <button
+            onClick={resetTasks}
+            className="px-4 py-2 border border-gray-200 rounded-md hover:bg-gray-50 flex items-center gap-2"
+          >
+            <RefreshCw className="w-4 h-4" />
+            Reset to Original
+          </button>
           <button className="px-4 py-2 border border-gray-200 rounded-md hover:bg-gray-50 flex items-center gap-2">
             <Download className="w-4 h-4" />
             Export
-          </button>
-          <button className="px-4 py-2 border border-gray-200 rounded-md hover:bg-gray-50 flex items-center gap-2">
-            <RefreshCw className="w-4 h-4" />
-            Refresh
           </button>
         </div>
       </div>
@@ -382,8 +656,14 @@ export default function TaskMonitoring() {
       )}
 
       {viewMode === 'timeline' && (
-        <div className="flex flex-col h-full">
-          {/* Stats Bar and Controls */}
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+        >
+          <div className="flex flex-col h-full">
+            {/* Stats Bar and Controls */}
           <div className="px-6 py-3 border-b bg-white">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-6 text-sm">
@@ -487,7 +767,7 @@ export default function TaskMonitoring() {
                         </div>
                       </td>
 
-                      <td className="relative p-0" style={{ height: '100px' }}>
+                      <DroppableStaffRow staffId={staff.id} style={{ height: '100px' }}>
                         <div className="relative w-full h-full">
                           {/* Now indicator line for this row */}
                           {nowHour >= startHour && nowHour <= endHour && (
@@ -557,32 +837,32 @@ export default function TaskMonitoring() {
                               return (taskStart < tEnd && taskEnd > tStart);
                             });
 
-                            // Vertical stacking logic
+                            // Vertical stacking logic (supports up to 3 parallel tasks)
                             const containerHeight = 90; // Available height in the row
-                            const stackGap = 3; // Gap between stacked tasks
+                            const stackGap = 2; // Gap between stacked tasks
                             let taskHeight = containerHeight;
                             let taskTop = 5; // Default top padding
-                            let stackPosition = 0; // 0 for first task, 1 for second task
+                            let stackPosition = 0; // 0 for first task, 1 for second task, 2 for third
 
                             if (overlappingTasks.length > 0) {
-                              // Split height between overlapping tasks (max 2)
-                              const totalTasks = 2; // Max 2 parallel tasks
-                              taskHeight = (containerHeight - stackGap) / totalTasks;
+                              // Split height between overlapping tasks (up to 3)
+                              const totalTasks = Math.min(overlappingTasks.length + 1, 3);
+                              taskHeight = (containerHeight - (stackGap * (totalTasks - 1))) / totalTasks;
 
-                              // Determine stack position (0 = top, 1 = bottom)
+                              // Determine stack position based on task order
                               const earlierOverlaps = overlappingTasks.filter(t => {
                                 const tIdx = staffTasks.findIndex(st => st.id === t.id);
                                 return tIdx < idx;
                               });
 
-                              stackPosition = earlierOverlaps.length > 0 ? 1 : 0;
+                              stackPosition = earlierOverlaps.length;
                               taskTop = 5 + (stackPosition * (taskHeight + stackGap));
                             }
 
                             return (
-                              <div
+                              <DraggableTaskCard
                                 key={task.id}
-                                className={`absolute rounded-lg border-2 p-2 cursor-pointer hover:shadow-lg transition-all ${getStatusColor(task.status)}`}
+                                task={task}
                                 style={{
                                   left: `${Math.max(0, left)}px`,
                                   width: `${width}px`,
@@ -590,17 +870,13 @@ export default function TaskMonitoring() {
                                   height: `${taskHeight}px`,
                                   zIndex: 10,
                                 }}
-                              >
-                                <div className="flex items-start justify-between gap-1 mb-1">
-                                  <span className="text-xs font-medium flex-1 truncate">{task.title}</span>
-                                  <div className={`w-3 h-3 rounded-full shrink-0 mt-0.5 ${getTypeDotColor(task.type)} shadow-sm`}></div>
-                                </div>
-                                <div className="opacity-70" style={{ fontSize: '10px', lineHeight: '1.2' }}>{task.startTime} - {task.endTime}</div>
-                              </div>
+                                getStatusColor={getStatusColor}
+                                getTypeDotColor={getTypeDotColor}
+                              />
                             );
                           })}
                         </div>
-                      </td>
+                      </DroppableStaffRow>
                     </tr>
                   );
                 })}
@@ -608,7 +884,19 @@ export default function TaskMonitoring() {
             </table>
           </div>
         </div>
+
+          <DragOverlay>
+            {activeTaskId ? (
+              <div className="bg-white rounded-lg border-2 border-pink-500 shadow-lg p-2 opacity-80">
+                <div className="text-xs font-medium">Dragging task...</div>
+              </div>
+            ) : null}
+          </DragOverlay>
+        </DndContext>
       )}
+
+      {/* Toast Container */}
+      <ToastContainer toasts={toasts} onRemove={removeToast} />
     </div>
   );
 }
