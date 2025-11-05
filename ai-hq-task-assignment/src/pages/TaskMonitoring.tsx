@@ -9,6 +9,8 @@ import { StoreSelector } from '../components/StoreSelector';
 import { useRoleBasedData } from '../hooks/useRoleBasedData';
 import { DraggableTaskCard } from '../components/DraggableTaskCard';
 import { DroppableStaffRow } from '../components/DroppableStaffRow';
+import { DraggableKanbanCard } from '../components/DraggableKanbanCard';
+import { DroppableKanbanColumn } from '../components/DroppableKanbanColumn';
 import { ToastContainer, ToastType } from '../components/Toast';
 
 export default function TaskMonitoring() {
@@ -343,6 +345,18 @@ export default function TaskMonitoring() {
     }
   };
 
+  // Change task status (for Kanban view)
+  const changeTaskStatus = (taskId: string, newStatus: string) => {
+    const task = tasks.find(t => t.id === taskId);
+    if (!task || task.status === newStatus) return;
+
+    updateTask(taskId, {
+      status: newStatus,
+      progress: newStatus === 'Done' ? 100 : newStatus === 'Processing' ? 50 : 0
+    });
+    showToast('success', `Task status changed to ${newStatus}`);
+  };
+
   // Drag & drop event handlers
   const handleDragStart = (event: DragStartEvent) => {
     setActiveTaskId(event.active.id as string);
@@ -364,7 +378,17 @@ export default function TaskMonitoring() {
       return;
     }
 
-    // Check if dropped on a staff row
+    const overData = over.data.current;
+
+    // Check if this is a Kanban column drop (status change)
+    if (overData?.type === 'kanban-column') {
+      const newStatus = over.id as string;
+      changeTaskStatus(taskId, newStatus);
+      setActiveTaskId(null);
+      return;
+    }
+
+    // Timeline view - staff row drop
     const targetStaffId = over.id as string;
 
     // Calculate if there was significant horizontal movement (time adjustment)
@@ -599,60 +623,42 @@ export default function TaskMonitoring() {
       )}
 
       {viewMode === 'kanban' && (
-        <div className="flex-1 overflow-auto bg-gray-50 p-6">
-          <div className="flex gap-4 h-full">
-            {statusGroups.map((group) => (
-              <div
-                key={group.name}
-                className="flex-1 min-w-[280px] bg-white rounded-xl p-4 flex flex-col"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-medium">{group.name}</h3>
-                  <span className="text-xs bg-gray-100 px-2 py-1 rounded">
-                    {group.tasks.length}
-                  </span>
-                </div>
-
-                <div className="flex-1 overflow-auto space-y-3">
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+        >
+          <div className="flex-1 overflow-auto bg-gray-50 p-6">
+            <div className="flex gap-4 h-full">
+              {statusGroups.map((group) => (
+                <DroppableKanbanColumn
+                  key={group.name}
+                  status={group.name}
+                  count={group.tasks.length}
+                >
                   {group.tasks.map((task) => (
-                    <button
+                    <DraggableKanbanCard
                       key={task.id}
-                      className={`w-full text-left rounded-lg border-2 p-3 transition-all hover:shadow-lg ${getStatusColor(task.status)}`}
-                    >
-                      <div className="flex items-start justify-between gap-2 mb-2">
-                        <span className="text-sm font-medium flex-1">{task.title}</span>
-                        <div className={`w-2 h-2 rounded-full shrink-0 mt-0.5 ${getTypeDotColor(task.type)}`}></div>
-                      </div>
-                      <div className="text-xs opacity-70 mb-2">{task.category}</div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <img src={task.avatar} alt={task.assignee} className="w-6 h-6 rounded-full" />
-                        <span className="text-xs">{task.assignee}</span>
-                      </div>
-                      <div className="flex items-center justify-between text-xs opacity-75">
-                        <span>{task.startTime} - {task.endTime}</span>
-                        <span className={getPriorityColor(task.priority)}>{task.priority}</span>
-                      </div>
-                      {task.progress > 0 && (
-                        <div className="mt-2">
-                          <div className="flex items-center justify-between text-xs mb-1">
-                            <span>Progress</span>
-                            <span>{task.progress}%</span>
-                          </div>
-                          <div className="bg-gray-200 rounded-full h-1.5">
-                            <div
-                              className="bg-pink-600 h-1.5 rounded-full"
-                              style={{ width: `${task.progress}%` }}
-                            ></div>
-                          </div>
-                        </div>
-                      )}
-                    </button>
+                      task={task}
+                      getStatusColor={getStatusColor}
+                      getTypeDotColor={getTypeDotColor}
+                      getPriorityColor={getPriorityColor}
+                    />
                   ))}
-                </div>
-              </div>
-            ))}
+                </DroppableKanbanColumn>
+              ))}
+            </div>
           </div>
-        </div>
+
+          <DragOverlay>
+            {activeTaskId ? (
+              <div className="bg-white rounded-lg border-2 border-pink-500 shadow-lg p-3 opacity-80 w-[280px]">
+                <div className="text-sm font-medium">Dragging task...</div>
+              </div>
+            ) : null}
+          </DragOverlay>
+        </DndContext>
       )}
 
       {viewMode === 'timeline' && (
