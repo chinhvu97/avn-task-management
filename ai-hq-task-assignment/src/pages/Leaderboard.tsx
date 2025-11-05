@@ -1,14 +1,15 @@
 import { useState, useMemo } from 'react';
 import { Trophy, Medal, Award, ChevronRight, Calendar } from 'lucide-react';
-import { mockLeaderboard, mockStoreLeaderboard, calculatePoints } from 'shared-data';
-import { useRole } from '../contexts/RoleContext';
+import { mockLeaderboard, mockStoreLeaderboard, calculatePoints, getStaffByBuilding } from 'shared-data';
+import { useRole, getCurrentStore } from '../contexts/RoleContext';
 import { RoleIndicator } from '../components/RoleIndicator';
 import { StoreSelector } from '../components/StoreSelector';
 import { useRoleBasedData } from '../hooks/useRoleBasedData';
 
 export default function Leaderboard() {
   const { profile } = useRole();
-  const { isMultiStore } = useRoleBasedData();
+  const currentStore = getCurrentStore(profile);
+  const { isMultiStore, visibleStaffIds } = useRoleBasedData();
 
   // Default tab based on role
   const getDefaultLevel = () => {
@@ -55,17 +56,79 @@ export default function Leaderboard() {
     'EP-006': 'AEON MAXVALU ECOPARK',
   };
 
-  // Create extended leaderboard with display data
-  const leaderboardData = mockLeaderboard.map(entry => ({
-    rank: entry.rank,
-    name: entry.staffName,
-    store: storeNameMap[entry.staffId] || 'Unknown Store',
-    tasksCompleted: entry.tasksCompleted,
-    completionRate: entry.completionRate,
-    totalHours: entry.totalHours,
-    efficiency: entry.efficiency,
-    points: calculatePoints(entry),
-  }));
+  // Generate leaderboard based on selected level and current store
+  const leaderboardData = useMemo(() => {
+    if (selectedLevel === 'store' && currentStore) {
+      // For Store level: Generate rankings for ALL staff in the current store
+      const storeStaff = getStaffByBuilding(currentStore.name);
+
+      // Generate mock performance data for each staff member
+      const storeLeaderboard = storeStaff.map((staff, index) => {
+        // Try to find actual data from mockLeaderboard, otherwise generate
+        const existingData = mockLeaderboard.find(entry => entry.staffId === staff.id);
+
+        if (existingData) {
+          return {
+            rank: index + 1,
+            staffId: staff.id,
+            name: staff.name,
+            store: currentStore.name,
+            tasksCompleted: existingData.tasksCompleted,
+            completionRate: existingData.completionRate,
+            totalHours: existingData.totalHours,
+            efficiency: existingData.efficiency,
+            points: calculatePoints(existingData),
+          };
+        } else {
+          // Generate realistic mock data for staff not in mockLeaderboard
+          const tasksCompleted = 180 + Math.floor(Math.random() * 120); // 180-300 tasks
+          const completionRate = 85 + Math.floor(Math.random() * 12); // 85-97%
+          const totalHours = 150 + Math.floor(Math.random() * 40); // 150-190 hours
+          const efficiency = 85 + Math.floor(Math.random() * 13); // 85-98%
+
+          return {
+            rank: index + 1,
+            staffId: staff.id,
+            name: staff.name,
+            store: currentStore.name,
+            tasksCompleted,
+            completionRate,
+            totalHours,
+            efficiency,
+            points: tasksCompleted * 10 + completionRate * 5 + efficiency * 3,
+          };
+        }
+      });
+
+      // Sort by points and re-rank
+      return storeLeaderboard
+        .sort((a, b) => b.points - a.points)
+        .map((entry, index) => ({ ...entry, rank: index + 1 }));
+    }
+
+    // For Regional and Global levels: Use mockLeaderboard
+    let filtered = mockLeaderboard.map(entry => ({
+      rank: entry.rank,
+      staffId: entry.staffId,
+      name: entry.staffName,
+      store: storeNameMap[entry.staffId] || 'Unknown Store',
+      tasksCompleted: entry.tasksCompleted,
+      completionRate: entry.completionRate,
+      totalHours: entry.totalHours,
+      efficiency: entry.efficiency,
+      points: calculatePoints(entry),
+    }));
+
+    if (selectedLevel === 'regional') {
+      // Show only staff from user's accessible stores
+      filtered = filtered.filter(entry => visibleStaffIds.includes(entry.staffId));
+      // Re-rank after filtering
+      filtered = filtered.map((entry, index) => ({ ...entry, rank: index + 1 }));
+    }
+    // 'global' shows all staff (no filtering)
+
+    return filtered;
+  }, [selectedLevel, currentStore, visibleStaffIds]);
 
   const storeLeaderboard = mockStoreLeaderboard;
 

@@ -22,77 +22,17 @@ import {
 
 // Import data from shared-data
 import { mockStoreLeaderboard } from 'shared-data';
-import { useRole } from '../contexts/RoleContext';
+import { useRole, getCurrentStore } from '../contexts/RoleContext';
 import { RoleIndicator } from '../components/RoleIndicator';
 import { StoreSelector } from '../components/StoreSelector';
 import { useRoleBasedData } from '../hooks/useRoleBasedData';
+import { useMemo } from 'react';
 
-// Enhanced data with better metrics
-const completionTrendData = [
-  { date: 'Week 1', completionRate: 85, target: 90, tasksCompleted: 935 },
-  { date: 'Week 2', completionRate: 87, target: 90, tasksCompleted: 957 },
-  { date: 'Week 3', completionRate: 89, target: 90, tasksCompleted: 979 },
-  { date: 'Week 4', completionRate: 91, target: 90, tasksCompleted: 1001 },
-  { date: 'Week 5', completionRate: 93, target: 90, tasksCompleted: 1023 },
-  { date: 'Week 6', completionRate: 94, target: 90, tasksCompleted: 1034 },
-  { date: 'Week 7', completionRate: 96, target: 90, tasksCompleted: 1056 },
-];
-
-// Better category data with completion info
-const categoryPerformanceData = [
-  { category: 'Shelf Display', avgTime: 42, targetTime: 45, completionRate: 94, performance: 107, tasks: 458 },
-  { category: 'Inventory', avgTime: 35, targetTime: 40, completionRate: 92, performance: 114, tasks: 312 },
-  { category: 'Customer Service', avgTime: 28, targetTime: 30, completionRate: 96, performance: 107, tasks: 289 },
-  { category: 'Cleaning', avgTime: 25, targetTime: 25, completionRate: 98, performance: 100, tasks: 267 },
-  { category: 'Stock Replenish', avgTime: 38, targetTime: 40, completionRate: 91, performance: 105, tasks: 245 },
-  { category: 'Price Label', avgTime: 20, targetTime: 22, completionRate: 95, performance: 110, tasks: 198 },
-].sort((a, b) => b.completionRate - a.completionRate);
-
-// Monthly trend with more metrics
-const monthlyTrendData = [
-  { month: 'Apr', completionRate: 82, efficiency: 85, satisfaction: 80 },
-  { month: 'May', completionRate: 84, efficiency: 87, satisfaction: 83 },
-  { month: 'Jun', completionRate: 86, efficiency: 89, satisfaction: 85 },
-  { month: 'Jul', completionRate: 88, efficiency: 91, satisfaction: 87 },
-  { month: 'Aug', completionRate: 90, efficiency: 93, satisfaction: 89 },
-  { month: 'Sep', completionRate: 92, efficiency: 94, satisfaction: 91 },
-  { month: 'Oct', completionRate: 94, efficiency: 96, satisfaction: 93 },
-];
-
-// Store radar data for multi-dimensional comparison
-const storeRadarData = mockStoreLeaderboard.map(store => ({
-  store: store.storeName.split(' ').slice(-2).join(' '), // Shortened names
-  completionRate: store.completionRate,
-  efficiency: store.efficiency,
-  taskVolume: Math.round((store.tasksCompleted / 20)),
-  staffUtilization: store.totalStaff ? Math.round((store.tasksCompleted / store.totalStaff) / 3) : 0,
-}));
-
-// Peak hours analysis
-const peakHoursData = [
-  { hour: '08:00', taskCount: 45, efficiency: 82 },
-  { hour: '09:00', taskCount: 68, efficiency: 88 },
-  { hour: '10:00', taskCount: 92, efficiency: 94 },
-  { hour: '11:00', taskCount: 85, efficiency: 91 },
-  { hour: '12:00', taskCount: 65, efficiency: 78 },
-  { hour: '13:00', taskCount: 58, efficiency: 75 },
-  { hour: '14:00', taskCount: 88, efficiency: 93 },
-  { hour: '15:00', taskCount: 95, efficiency: 96 },
-  { hour: '16:00', taskCount: 82, efficiency: 89 },
-  { hour: '17:00', taskCount: 52, efficiency: 84 },
-];
-
-const aggregateKPIs = {
-  totalTasks: 33420,
-  totalTasksChange: 8.2,
-  completionRate: 92.5,
-  completionRateChange: 3.5,
-  totalHours: 18450,
-  totalHoursChange: 5.1,
-  avgEfficiency: 91.3,
-  avgEfficiencyChange: 4.2,
-  activeStores: 26,
-  totalStaff: 268,
+// Helper: Generate consistent random number based on seed
+const seededRandom = (seed: number, min: number, max: number) => {
+  const x = Math.sin(seed) * 10000;
+  const random = x - Math.floor(x);
+  return Math.floor(random * (max - min + 1)) + min;
 };
 
 // KPI targets
@@ -104,7 +44,95 @@ const kpiTargets = {
 
 export default function Performance() {
   const { profile } = useRole();
-  const { isMultiStore, stats: roleStats } = useRoleBasedData();
+  const currentStore = getCurrentStore(profile);
+  const { isMultiStore, stats: roleStats, visibleStores } = useRoleBasedData();
+
+  // Generate seed from current store ID for consistent but different data per store
+  const storeSeed = currentStore ? parseInt(currentStore.id.replace(/\D/g, ''), 10) || 1 : 1;
+
+  // Generate store-specific KPIs based on current store
+  const aggregateKPIs = useMemo(() => ({
+    totalTasks: roleStats.totalTasks,
+    totalTasksChange: 8.2,
+    completionRate: seededRandom(storeSeed, 88, 96),
+    completionRateChange: 3.5,
+    totalHours: roleStats.totalStaff * 9 * 30, // staff * 9h/day * 30 days
+    totalHoursChange: 5.1,
+    avgEfficiency: seededRandom(storeSeed + 1, 88, 98),
+    avgEfficiencyChange: 4.2,
+    activeStores: roleStats.totalStores,
+    totalStaff: roleStats.totalStaff,
+  }), [roleStats, storeSeed]);
+
+  // Weekly completion trend - dynamic based on store
+  const completionTrendData = useMemo(() => [
+    { date: 'Week 1', completionRate: seededRandom(storeSeed + 10, 82, 87), target: 90, tasksCompleted: roleStats.totalTasks * 0.13 },
+    { date: 'Week 2', completionRate: seededRandom(storeSeed + 11, 84, 89), target: 90, tasksCompleted: roleStats.totalTasks * 0.14 },
+    { date: 'Week 3', completionRate: seededRandom(storeSeed + 12, 86, 91), target: 90, tasksCompleted: roleStats.totalTasks * 0.14 },
+    { date: 'Week 4', completionRate: seededRandom(storeSeed + 13, 88, 93), target: 90, tasksCompleted: roleStats.totalTasks * 0.15 },
+    { date: 'Week 5', completionRate: seededRandom(storeSeed + 14, 90, 95), target: 90, tasksCompleted: roleStats.totalTasks * 0.15 },
+    { date: 'Week 6', completionRate: seededRandom(storeSeed + 15, 91, 96), target: 90, tasksCompleted: roleStats.totalTasks * 0.14 },
+    { date: 'Week 7', completionRate: seededRandom(storeSeed + 16, 93, 98), target: 90, tasksCompleted: roleStats.totalTasks * 0.15 },
+  ], [storeSeed, roleStats.totalTasks]);
+
+  // Category performance - dynamic based on store
+  const categoryPerformanceData = useMemo(() => {
+    const categories = [
+      { category: 'Shelf Display', targetTime: 45 },
+      { category: 'Inventory', targetTime: 40 },
+      { category: 'Customer Service', targetTime: 30 },
+      { category: 'Cleaning', targetTime: 25 },
+      { category: 'Stock Replenish', targetTime: 40 },
+      { category: 'Price Label', targetTime: 22 },
+    ];
+
+    return categories.map((cat, idx) => ({
+      ...cat,
+      avgTime: seededRandom(storeSeed + 20 + idx, cat.targetTime - 5, cat.targetTime + 2),
+      completionRate: seededRandom(storeSeed + 30 + idx, 88, 98),
+      performance: seededRandom(storeSeed + 40 + idx, 95, 115),
+      tasks: Math.round(roleStats.totalTasks * (0.15 + idx * 0.02)),
+    })).sort((a, b) => b.completionRate - a.completionRate);
+  }, [storeSeed, roleStats.totalTasks]);
+
+  // Monthly trend - dynamic based on store
+  const monthlyTrendData = useMemo(() => [
+    { month: 'Apr', completionRate: seededRandom(storeSeed + 50, 78, 84), efficiency: seededRandom(storeSeed + 60, 82, 87), satisfaction: seededRandom(storeSeed + 70, 77, 82) },
+    { month: 'May', completionRate: seededRandom(storeSeed + 51, 81, 86), efficiency: seededRandom(storeSeed + 61, 84, 89), satisfaction: seededRandom(storeSeed + 71, 80, 85) },
+    { month: 'Jun', completionRate: seededRandom(storeSeed + 52, 83, 88), efficiency: seededRandom(storeSeed + 62, 86, 91), satisfaction: seededRandom(storeSeed + 72, 82, 87) },
+    { month: 'Jul', completionRate: seededRandom(storeSeed + 53, 85, 90), efficiency: seededRandom(storeSeed + 63, 88, 93), satisfaction: seededRandom(storeSeed + 73, 84, 89) },
+    { month: 'Aug', completionRate: seededRandom(storeSeed + 54, 87, 92), efficiency: seededRandom(storeSeed + 64, 90, 95), satisfaction: seededRandom(storeSeed + 74, 86, 91) },
+    { month: 'Sep', completionRate: seededRandom(storeSeed + 55, 89, 94), efficiency: seededRandom(storeSeed + 65, 91, 96), satisfaction: seededRandom(storeSeed + 75, 88, 93) },
+    { month: 'Oct', completionRate: seededRandom(storeSeed + 56, 91, 96), efficiency: seededRandom(storeSeed + 66, 93, 98), satisfaction: seededRandom(storeSeed + 76, 90, 95) },
+  ], [storeSeed]);
+
+  // Peak hours - dynamic based on store
+  const peakHoursData = useMemo(() => [
+    { hour: '08:00', taskCount: seededRandom(storeSeed + 80, 40, 50), efficiency: seededRandom(storeSeed + 90, 78, 85) },
+    { hour: '09:00', taskCount: seededRandom(storeSeed + 81, 60, 75), efficiency: seededRandom(storeSeed + 91, 85, 91) },
+    { hour: '10:00', taskCount: seededRandom(storeSeed + 82, 85, 98), efficiency: seededRandom(storeSeed + 92, 90, 96) },
+    { hour: '11:00', taskCount: seededRandom(storeSeed + 83, 78, 90), efficiency: seededRandom(storeSeed + 93, 87, 93) },
+    { hour: '12:00', taskCount: seededRandom(storeSeed + 84, 58, 70), efficiency: seededRandom(storeSeed + 94, 72, 82) },
+    { hour: '13:00', taskCount: seededRandom(storeSeed + 85, 50, 65), efficiency: seededRandom(storeSeed + 95, 70, 78) },
+    { hour: '14:00', taskCount: seededRandom(storeSeed + 86, 80, 93), efficiency: seededRandom(storeSeed + 96, 88, 95) },
+    { hour: '15:00', taskCount: seededRandom(storeSeed + 87, 88, 100), efficiency: seededRandom(storeSeed + 97, 92, 98) },
+    { hour: '16:00', taskCount: seededRandom(storeSeed + 88, 75, 88), efficiency: seededRandom(storeSeed + 98, 85, 92) },
+    { hour: '17:00', taskCount: seededRandom(storeSeed + 89, 45, 58), efficiency: seededRandom(storeSeed + 99, 80, 87) },
+  ], [storeSeed]);
+
+  // Store radar data - only for multi-store roles
+  const storeRadarData = useMemo(() => {
+    if (!isMultiStore) return [];
+    return mockStoreLeaderboard
+      .filter(store => visibleStores.some(s => s.name === store.storeName))
+      .map(store => ({
+        store: store.storeName.split(' ').slice(-2).join(' '),
+        completionRate: store.completionRate,
+        efficiency: store.efficiency,
+        taskVolume: Math.round((store.tasksCompleted / 20)),
+        staffUtilization: store.totalStaff ? Math.round((store.tasksCompleted / store.totalStaff) / 3) : 0,
+      }));
+  }, [isMultiStore, visibleStores]);
 
   const COLORS = {
     primary: '#D61F69',
@@ -351,40 +379,53 @@ export default function Performance() {
           </div>
         </div>
 
-        {/* Store Multi-Dimensional Comparison */}
-        <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
-          <div className="mb-4">
-            <h2 className="text-lg font-bold text-gray-800 mb-1">Store Performance Radar</h2>
-            <p className="text-sm text-gray-500">Multi-dimensional comparison across key metrics</p>
+        {/* Store Multi-Dimensional Comparison - Only for multi-store roles */}
+        {isMultiStore && storeRadarData.length > 0 && (
+          <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div className="mb-4">
+              <h2 className="text-lg font-bold text-gray-800 mb-1">Store Performance Radar</h2>
+              <p className="text-sm text-gray-500">Multi-dimensional comparison across {storeRadarData.length} stores</p>
+            </div>
+            <div style={{ width: '100%', height: 300 }}>
+              <ResponsiveContainer>
+                <RadarChart data={[
+                  { metric: 'Completion', ...Object.fromEntries(storeRadarData.map(s => [s.store, s.completionRate])) },
+                  { metric: 'Efficiency', ...Object.fromEntries(storeRadarData.map(s => [s.store, s.efficiency])) },
+                  { metric: 'Volume', ...Object.fromEntries(storeRadarData.map(s => [s.store, s.taskVolume])) },
+                  { metric: 'Utilization', ...Object.fromEntries(storeRadarData.map(s => [s.store, s.staffUtilization])) },
+                ]}>
+                  <PolarGrid stroke="#e5e7eb" />
+                  <PolarAngleAxis dataKey="metric" style={{ fontSize: 12, fontWeight: 600 }} />
+                  <PolarRadiusAxis angle={90} domain={[0, 100]} style={{ fontSize: 10 }} />
+                  {storeRadarData.map((store, idx) => {
+                    const colors = [COLORS.primary, COLORS.info, COLORS.success, COLORS.warning];
+                    const color = colors[idx % colors.length];
+                    return (
+                      <Radar
+                        key={store.store}
+                        name={store.store}
+                        dataKey={store.store}
+                        stroke={color}
+                        fill={color}
+                        fillOpacity={0.5}
+                        strokeWidth={2}
+                      />
+                    );
+                  })}
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: 'white',
+                      border: '1px solid #e5e7eb',
+                      borderRadius: '8px',
+                      boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                    }}
+                  />
+                  <Legend wrapperStyle={{ fontSize: 11 }} />
+                </RadarChart>
+              </ResponsiveContainer>
+            </div>
           </div>
-          <div style={{ width: '100%', height: 300 }}>
-            <ResponsiveContainer>
-              <RadarChart data={[
-                { metric: 'Completion', ...Object.fromEntries(storeRadarData.map(s => [s.store, s.completionRate])) },
-                { metric: 'Efficiency', ...Object.fromEntries(storeRadarData.map(s => [s.store, s.efficiency])) },
-                { metric: 'Volume', ...Object.fromEntries(storeRadarData.map(s => [s.store, s.taskVolume])) },
-                { metric: 'Utilization', ...Object.fromEntries(storeRadarData.map(s => [s.store, s.staffUtilization])) },
-              ]}>
-                <PolarGrid stroke="#e5e7eb" />
-                <PolarAngleAxis dataKey="metric" style={{ fontSize: 12, fontWeight: 600 }} />
-                <PolarRadiusAxis angle={90} domain={[0, 100]} style={{ fontSize: 10 }} />
-                <Radar name={storeRadarData[0].store} dataKey={storeRadarData[0].store} stroke={COLORS.primary} fill={COLORS.primary} fillOpacity={0.5} strokeWidth={2} />
-                <Radar name={storeRadarData[1].store} dataKey={storeRadarData[1].store} stroke={COLORS.info} fill={COLORS.info} fillOpacity={0.5} strokeWidth={2} />
-                <Radar name={storeRadarData[2].store} dataKey={storeRadarData[2].store} stroke={COLORS.success} fill={COLORS.success} fillOpacity={0.5} strokeWidth={2} />
-                <Radar name={storeRadarData[3].store} dataKey={storeRadarData[3].store} stroke={COLORS.warning} fill={COLORS.warning} fillOpacity={0.5} strokeWidth={2} />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: 'white',
-                    border: '1px solid #e5e7eb',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-                  }}
-                />
-                <Legend wrapperStyle={{ fontSize: 11 }} />
-              </RadarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
+        )}
       </div>
 
       {/* ============================================ */}
