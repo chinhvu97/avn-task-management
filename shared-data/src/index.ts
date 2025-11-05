@@ -16,3 +16,6 @@ export * from './mockTasks';
 
 // Export leaderboard data
 export * from './leaderboard';
+
+// Export WS task submissions (for HQ approval demo)
+export * from './mock/wsTaskSubmissions';

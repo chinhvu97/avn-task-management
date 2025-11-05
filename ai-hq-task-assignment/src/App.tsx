@@ -9,6 +9,8 @@ import DWSTaskTemplates from './pages/DWSTaskTemplates';
 import DWSTemplateForm from './pages/DWSTemplateForm';
 import WSTaskTemplates from './pages/WSTaskTemplates';
 import WSTemplateForm from './pages/WSTemplateForm';
+import WSTaskApproval from './pages/WSTaskApproval';
+import WSTaskApprovalDetail from './pages/WSTaskApprovalDetail';
 import ShiftSchedule from './pages/ShiftSchedule';
 import StaffingRequirements from './pages/StaffingRequirements';
 import LeaveRequests from './pages/LeaveRequests';
@@ -31,6 +33,8 @@ export default function App() {
           <Route path="/ws-templates" element={<WSTaskTemplates />} />
           <Route path="/ws-templates/create" element={<WSTemplateForm />} />
           <Route path="/ws-templates/edit/:id" element={<WSTemplateForm />} />
+          <Route path="/ws-task-approval" element={<WSTaskApproval />} />
+          <Route path="/ws-task-approval/:id" element={<WSTaskApprovalDetail />} />
           <Route path="/staff" element={<StaffManagement />} />
           <Route path="/shift-schedule" element={<ShiftSchedule />} />
           <Route path="/staffing-requirements" element={<StaffingRequirements />} />

@@ -64,6 +64,7 @@ export default function Layout({ children }: LayoutProps) {
       children: [
         { name: 'AI Task Assignment', href: '/task-assignment', permission: 'task-assignment' },
         { name: 'Task Monitoring', href: '/task-monitoring', permission: 'task-monitoring' },
+        { name: 'WS Task Approval', href: '/ws-task-approval', permission: 'settings' },
         // Template creation is HQ-only (uses 'settings' permission as proxy for HQ)
         { name: 'DWS Templates', href: '/dws-templates', permission: 'settings' },
         { name: 'WS Templates', href: '/ws-templates', permission: 'settings' },
