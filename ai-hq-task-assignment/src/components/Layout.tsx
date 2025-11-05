@@ -90,8 +90,8 @@ export default function Layout({ children }: LayoutProps) {
       icon: BarChart3,
       permission: 'performance',
       children: [
-        { name: 'Performance', href: '/performance', permission: 'performance' },
-        { name: 'Leaderboard', href: '/leaderboard', permission: 'leaderboard' },
+        { name: 'Analytics', href: '/performance', permission: 'performance' },
+        { name: 'Staff Rankings', href: '/leaderboard', permission: 'leaderboard' },
       ]
     },
     {

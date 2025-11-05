@@ -159,13 +159,13 @@ export default function Performance() {
       <div className="flex items-center gap-2 text-sm mb-6">
         <span className="text-gray-500">Analytics</span>
         <ChevronRight className="w-4 h-4 text-gray-500" />
-        <span className="text-gray-800 font-medium">Performance Analytics</span>
+        <span className="text-gray-800 font-medium">Analytics</span>
       </div>
 
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Performance Analytics Dashboard</h1>
-        <p className="text-gray-600">Real-time operational insights across 26 stores and 268 staff members</p>
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">Analytics Dashboard</h1>
+        <p className="text-gray-600">Real-time operational insights and performance metrics</p>
       </div>
 
       {/* ============================================ */}

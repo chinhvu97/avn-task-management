@@ -307,7 +307,7 @@ export default function Dashboard() {
           <div className="bg-blue-500 p-3 rounded-lg w-fit mb-4 group-hover:scale-110 transition-transform">
             <BarChart3 className="w-6 h-6 text-white" />
           </div>
-          <div className="font-medium text-gray-800 mb-1">Leaderboard</div>
+          <div className="font-medium text-gray-800 mb-1">Staff Rankings</div>
           <div className="text-sm text-gray-500">View performance rankings</div>
         </Link>
       </div>
