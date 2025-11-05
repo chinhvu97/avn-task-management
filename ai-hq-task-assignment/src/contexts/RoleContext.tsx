@@ -41,14 +41,14 @@ const roleConfigs: Record<UserRole, Omit<UserProfile, 'currentStoreId'>> = {
     role: 'si',
     roleLabel: 'SI (Store Inspection)',
     avatar: 'MC',
-    stores: [allStores[0], allStores[1], allStores[6]], // 3 stores in Hanoi region
+    stores: [allStores[0], allStores[1]], // 2 stores: Ocean Park Hawaii, Sky Oasis
   },
   'am': {
     name: 'Emily Rodriguez',
     role: 'am',
     roleLabel: 'AM (Area Manager)',
     avatar: 'ER',
-    stores: [allStores[2], allStores[3], allStores[5], allStores[7]], // South region stores
+    stores: [allStores[1], allStores[2], allStores[3]], // 3 stores: Sky Oasis, Ecopark Rừng Cọ, Ecopark
   },
 };
 
@@ -107,7 +107,7 @@ export function hasPermission(role: UserRole, permission: string): boolean {
       'leaderboard'           // Staff rankings
     ],
 
-    // SI: Same as Store Manager but for 2-3 stores, can reallocate staff cross-store
+    // SI: Same as Store Manager but for 2 stores, can reallocate staff cross-store
     'si': [
       'dashboard',
       'task-assignment',      // Assign tasks across multiple stores
@@ -121,7 +121,7 @@ export function hasPermission(role: UserRole, permission: string): boolean {
       'stores'                // View all assigned stores
     ],
 
-    // AM: Regional manager, same as SI but for larger area (5-8 stores)
+    // AM: Regional manager, manages 3 stores across a region
     'am': [
       'dashboard',
       'task-assignment',      // Assign tasks across region
@@ -145,7 +145,7 @@ export function getRoleDescription(role: UserRole): string {
   const descriptions: Record<UserRole, string> = {
     'hq': 'Creates task templates (DWS/WS), manages system settings and master data',
     'store-manager': 'Receives tasks from HQ, assigns to staff, monitors store operations',
-    'si': 'Manages 2-3 stores, can assign tasks and reallocate staff cross-store',
+    'si': 'Manages 2 stores, can assign tasks and reallocate staff cross-store',
     'am': 'Manages regional stores, oversees cross-store operations and staff allocation',
   };
   return descriptions[role];
